@@ -15,7 +15,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v3/">
+function shareKalm() {
+  const text = "I've been reprogramming my mornings with KαLM — try it: https://kalmalpha.com";
+  if (navigator.share) {
+    navigator.share({ text: text, url: 'https://kalmalpha.com' });
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Link copied to clipboard');
+    });
+  }
+}
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -178,6 +189,18 @@
     gap: 0.8rem;
     padding: 0 2rem;
     margin-top: 8rem;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost {
+    padding: 1.1rem 2.8rem !important;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    width: 240px;
+    box-sizing: border-box;
   }
 
   .btn-primary {
@@ -1033,6 +1056,37 @@
     .phone-mockup { display: none; }
     .modal { padding: 2rem; }
   }
+
+  .footer-share {
+    margin-top: 1.5rem;
+    background: transparent;
+    border: 1px solid var(--cream-darker);
+    color: var(--charcoal-light);
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.7rem 2rem;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .footer-share:hover { border-color: var(--gold); color: var(--gold); }
+
+  .nav-share {
+    background: transparent;
+    border: none;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 0;
+  }
+  .nav-share:hover { color: var(--gold); }
 </style>
 </head>
 <body>
@@ -1040,7 +1094,9 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">K<span>α</span>LM</a>
-  <div class="lang-switcher">
+  <div style="display:flex; align-items:center; gap:2rem;">
+    <button class="nav-share" onclick="shareKalm()">Share</button>
+    <div class="lang-switcher">
     <div class="lang-current" id="langCurrent" onclick="toggleLangDropdown()">EN</div>
     <div class="lang-dropdown" id="langDropdown">
       <button class="lang-option active" onclick="setLang('en')">English</button>
@@ -1050,6 +1106,7 @@
       <button class="lang-option" onclick="setLang('he')">עברית</button>
     </div>
     <a href="#pricing" class="nav-cta" id="nav-cta-btn" data-t="navCta">Get the App</a>
+  </div>
   </div>
 </nav>
 
@@ -1107,7 +1164,7 @@
           <span class="step-num">04</span>
           <div class="step-content">
             <h4 data-t="step4Title">Wake up different. Fall asleep lighter.</h4>
-            <p data-t="step4">A gentle bell opens and closes each session. Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.</p>
+            <p data-t="step4">Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.</p>
           </div>
         </div>
       </div>
@@ -1228,33 +1285,31 @@
     </h2>
 
     <div class="pricing-cards">
-      <div class="price-card">
+      <div class="price-card" style="display:flex; flex-direction:column;">
         <p class="price-label" data-t="essentialLabel">Essential</p>
         <div class="price-amount"><sup>CHF</sup>9</div>
         <p class="price-period" data-t="essentialPeriod">one-time payment</p>
         <p class="price-desc" data-t="essentialDesc">The full KALM experience. No subscription. No renewal. Yours forever.</p>
-        <ul class="price-features">
-          <li class="price-feature">AI affirmation script generator</li>
-          <li class="price-feature">Schumann frequency 7.83Hz</li>
-          <li class="price-feature">Screen dimming during session</li>
-          <li class="price-feature">Streak tracker</li>
-          <li class="price-feature">5 languages</li>
+        <ul class="price-features" style="margin-top:auto;">
+          <li class="price-feature" data-t="ef1">AI affirmation script generator</li>
+          <li class="price-feature" data-t="ef2">Schumann frequency 7.83Hz</li>
+          <li class="price-feature" data-t="ef3">Screen dimming during session</li>
+          <li class="price-feature" data-t="ef4">Streak tracker</li>
+          <li class="price-feature" data-t="ef5">5 languages</li>
         </ul>
         <button class="pay-btn" data-t="essentialCta" onclick="window.location.href='https://buy.stripe.com/test_eVqfZigFl2Zj4wLaxtfbq00'">Begin for CHF 9</button>
       </div>
 
-      <div class="price-card featured">
+      <div class="price-card featured" style="display:flex; flex-direction:column;">
         <div class="price-badge" data-t="ritualBadge">Most Complete</div>
         <p class="price-label" data-t="ritualLabel">Full Ritual</p>
         <div class="price-amount"><sup>CHF</sup>19</div>
         <p class="price-period" data-t="ritualPeriod">one-time payment</p>
         <p class="price-desc" data-t="ritualDesc">Everything in Essential, plus voice recording and advanced session customization.</p>
-        <ul class="price-features">
-          <li class="price-feature">Everything in Essential</li>
-          <li class="price-feature">Voice recording in your own voice</li>
-          <li class="price-feature">Bell chimes at session start & close</li>
-          <li class="price-feature">Session length: 5, 10 or 15 minutes</li>
-          <li class="price-feature">Priority support</li>
+        <ul class="price-features" style="margin-top:auto;">
+          <li class="price-feature" data-t="rf1">Everything in Essential</li>
+          <li class="price-feature" data-t="rf2">Voice recording in your own voice</li>
+          <li class="price-feature" data-t="rf3">Session length: 5, 10 or 15 minutes</li>
         </ul>
         <button class="pay-btn" data-t="ritualCta" onclick="window.location.href='https://buy.stripe.com/test_28E5kE3Sz6bv7IX8plfbq01'">Begin for CHF 19</button>
       </div>
@@ -1496,7 +1551,7 @@ const TRANSLATIONS = {
     step3Title: 'Your voice. Your words.',
     step3: 'Record your own voice reading your affirmations. Research shows your own voice is 40% more effective at reaching the subconscious.',
     step4Title: 'Wake up different. Fall asleep lighter.',
-    step4: 'A gentle bell opens and closes each session. Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.',
+    step4: 'Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.',
     featuresLabel: 'Everything in the App',
     featuresTitle: 'Built for the moments before sleep<br>and <em>after waking</em>',
     f1title: 'AI Affirmation Scripts',
@@ -1541,6 +1596,15 @@ const TRANSLATIONS = {
     faq4a: 'No. KALM is a one-time payment. You pay once, CHF 9 or CHF 19, and the app is yours. No recurring charge. No reminders. No guilt.',
     faq5q: 'Which languages are supported?',
     faq5a: 'English, French, German, Spanish, and Hebrew. The AI generates your affirmation script in whichever language you choose, including languages where the syntax and emotional register differ significantly from English.',
+    ef1: 'AI affirmation script generator',
+    ef2: 'Schumann frequency 7.83Hz',
+    ef3: 'Screen dimming during session',
+    ef4: 'Streak tracker',
+    ef5: '5 languages',
+    rf1: 'Everything in Essential',
+    rf2: 'Voice recording in your own voice',
+    rf3: 'Session length: 5, 10 or 15 minutes',
+
     ctaLabel: 'Begin Today',
     ctaTitle: 'Tonight. Tomorrow morning.<br><em>Every day after.</em>',
     ctaSub: 'One payment. No subscription. Yours forever.',
@@ -1573,7 +1637,7 @@ const TRANSLATIONS = {
     step3Title: 'Ta voix. Tes mots.',
     step3: 'Enregistre ta propre voix lisant tes affirmations. La recherche montre que ta propre voix est 40% plus efficace pour atteindre le subconscient.',
     step4Title: 'Réveille-toi différent. Endors-toi plus léger.',
-    step4: "Une cloche douce ouvre et ferme chaque session. Utilise KALM le soir pour libérer la journée, le matin pour fixer ton intention. Le compteur de série maintient le rituel vivant.",
+    step4: "Utilise KALM le soir pour libérer la journée, le matin pour fixer ton intention. Le compteur de série maintient le rituel vivant.",
     featuresLabel: "Tout dans l'App",
     featuresTitle: 'Conçu pour les moments avant le sommeil<br>et <em>après le réveil</em>',
     f1title: "Scripts d'Affirmations IA",
@@ -1618,6 +1682,15 @@ const TRANSLATIONS = {
     faq4a: "Non. KALM est un paiement unique. Tu paies une fois, CHF 9 ou CHF 19, et l'app est à toi. Aucune charge récurrente. Aucun rappel. Aucune culpabilité.",
     faq5q: 'Quelles langues sont supportées?',
     faq5a: "Anglais, Français, Allemand, Espagnol et Hébreu. L'IA génère ton script d'affirmations dans la langue de ton choix.",
+    ef1: 'Générateur de script d\'affirmations par IA',
+    ef2: 'Fréquence Schumann 7.83Hz',
+    ef3: 'Atténuation de l\'écran pendant la session',
+    ef4: 'Suivi de série',
+    ef5: '5 langues',
+    rf1: 'Tout ce qui est dans Essentiel',
+    rf2: 'Enregistrement vocal dans ta propre voix',
+    rf3: 'Durée de session : 5, 10 ou 15 minutes',
+
     ctaLabel: "Commencer Aujourd'hui",
     ctaTitle: 'Ce soir. Demain matin.<br><em>Chaque jour après.</em>',
     ctaSub: 'Un paiement. Sans abonnement. À toi pour toujours.',
@@ -1650,7 +1723,7 @@ const TRANSLATIONS = {
     step3Title: 'Deine Stimme. Deine Worte.',
     step3: 'Nimm deine eigene Stimme beim Lesen deiner Affirmationen auf. Forschungen zeigen, dass deine eigene Stimme 40% effektiver das Unterbewusstsein erreicht.',
     step4Title: 'Anders aufwachen. Leichter einschlafen.',
-    step4: 'Eine sanfte Glocke öffnet und schließt jede Sitzung. Nutze KALM abends, um den Tag loszulassen, und morgens, um deine Absicht zu setzen. Der Streak-Tracker hält das Ritual lebendig.',
+    step4: 'Nutze KALM abends, um den Tag loszulassen, und morgens, um deine Absicht zu setzen. Der Streak-Tracker hält das Ritual lebendig.',
     featuresLabel: 'Alles in der App',
     featuresTitle: 'Für die Momente vor dem Schlaf<br>und <em>nach dem Aufwachen</em>',
     f1title: 'KI-Affirmationsskripte',
@@ -1695,6 +1768,15 @@ const TRANSLATIONS = {
     faq4a: 'Nein. KALM ist eine Einmalzahlung. Du zahlst einmal, CHF 9 oder CHF 19, und die App gehört dir. Keine wiederkehrenden Kosten. Keine Erinnerungen. Kein schlechtes Gewissen.',
     faq5q: 'Welche Sprachen werden unterstützt?',
     faq5a: 'Englisch, Französisch, Deutsch, Spanisch und Hebräisch. Die KI generiert dein Affirmationsskript in der von dir gewählten Sprache.',
+    ef1: 'KI-Affirmationsskript-Generator',
+    ef2: 'Schumann-Frequenz 7.83Hz',
+    ef3: 'Bildschirmdimmen während der Sitzung',
+    ef4: 'Streak-Tracker',
+    ef5: '5 Sprachen',
+    rf1: 'Alles aus Essential',
+    rf2: 'Sprachaufnahme in deiner eigenen Stimme',
+    rf3: 'Sitzungsdauer: 5, 10 oder 15 Minuten',
+
     ctaLabel: 'Heute Beginnen',
     ctaTitle: 'Heute Abend. Morgen früh.<br><em>Jeden Tag danach.</em>',
     ctaSub: 'Eine Zahlung. Kein Abonnement. Für immer deins.',
@@ -1727,7 +1809,7 @@ const TRANSLATIONS = {
     step3Title: 'Tu voz. Tus palabras.',
     step3: 'Graba tu propia voz leyendo tus afirmaciones. La investigación muestra que tu propia voz es 40% más efectiva para llegar al subconsciente.',
     step4Title: 'Despertarte diferente. Dormirte más ligero.',
-    step4: 'Una campana suave abre y cierra cada sesión. Usa KALM de noche para soltar el día, por la mañana para fijar tu intención. El rastreador de racha mantiene vivo el ritual.',
+    step4: 'Usa KALM de noche para soltar el día, por la mañana para fijar tu intención. El rastreador de racha mantiene vivo el ritual.',
     featuresLabel: 'Todo en la App',
     featuresTitle: 'Construido para los momentos antes del sueño<br>y <em>después del despertar</em>',
     f1title: 'Guiones de Afirmaciones IA',
@@ -1772,6 +1854,15 @@ const TRANSLATIONS = {
     faq4a: 'No. KALM es un pago único. Pagas una vez, CHF 9 o CHF 19, y la app es tuya. Sin cargo recurrente. Sin recordatorios. Sin culpa.',
     faq5q: '¿Qué idiomas son compatibles?',
     faq5a: 'Inglés, Francés, Alemán, Español y Hebreo. La IA genera tu guión de afirmaciones en el idioma que elijas.',
+    ef1: 'Generador de guión de afirmaciones con IA',
+    ef2: 'Frecuencia Schumann 7.83Hz',
+    ef3: 'Atenuación de pantalla durante la sesión',
+    ef4: 'Rastreador de racha',
+    ef5: '5 idiomas',
+    rf1: 'Todo lo de Esencial',
+    rf2: 'Grabación de voz en tu propia voz',
+    rf3: 'Duración de sesión: 5, 10 o 15 minutos',
+
     ctaLabel: 'Comenzar Hoy',
     ctaTitle: 'Esta noche. Mañana por la mañana.<br><em>Cada día después.</em>',
     ctaSub: 'Un pago. Sin suscripción. Tuyo para siempre.',
@@ -1804,7 +1895,7 @@ const TRANSLATIONS = {
     step3Title: 'הקול שלך. המילים שלך.',
     step3: 'הקלט את קולך שלך קורא את האישורים שלך. מחקרים מראים שקולך שלך יעיל ב-40% יותר להגיע לתת-מודע.',
     step4Title: 'התעורר שונה. הירדם קל יותר.',
-    step4: 'פעמון עדין פותח וסוגר כל סשן. השתמש ב-KALM בלילה לשחרר את היום, ובבוקר להגדיר את כוונתך. עוקב הרצף שומר על הטקס חי.',
+    step4: 'השתמש ב-KALM בלילה לשחרר את היום, ובבוקר להגדיר את כוונתך. עוקב הרצף שומר על הטקס חי.',
     featuresLabel: 'הכל באפליקציה',
     featuresTitle: 'בנוי לרגעים לפני השינה<br>ו<em>אחרי ההתעוררות</em>',
     f1title: 'תסריטי אישורים מבינה מלאכותית',
@@ -1849,6 +1940,15 @@ const TRANSLATIONS = {
     faq4a: 'לא. KALM הוא תשלום חד פעמי. אתה משלם פעם אחת, CHF 9 או CHF 19, והאפליקציה שלך. ללא חיוב חוזר. ללא תזכורות. ללא אשמה.',
     faq5q: 'אילו שפות נתמכות?',
     faq5a: 'אנגלית, צרפתית, גרמנית, ספרדית ועברית. הבינה המלאכותית מייצרת את תסריט האישורים שלך בכל שפה שתבחר.',
+    ef1: 'מחולל תסריט אישורים על ידי בינה מלאכותית',
+    ef2: 'תדר שומן 7.83Hz',
+    ef3: 'עמעום מסך במהלך הסשן',
+    ef4: 'עוקב רצף',
+    ef5: '5 שפות',
+    rf1: 'הכל מ-Essential',
+    rf2: 'הקלטת קול בקולך',
+    rf3: 'משך סשן: 5, 10 או 15 דקות',
+
     ctaLabel: 'התחל היום',
     ctaTitle: 'הלילה. מחר בבוקר.<br><em>כל יום אחרי.</em>',
     ctaSub: 'תשלום אחד. ללא מנוי. שלך לנצח.',
