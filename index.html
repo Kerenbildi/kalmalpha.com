@@ -15,7 +15,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://js.stripe.com/v3/">
+<script src="https://js.stripe.com/v3/"></script>
+<script>
 function shareKalm() {
   const text = "I've been reprogramming my mornings with KαLM — try it: https://kalmalpha.com";
   if (navigator.share) {
@@ -1087,6 +1088,18 @@ function shareKalm() {
     padding: 0;
   }
   .nav-share:hover { color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .nav-share { display: none; }
+    .nav-cta { display: none; }
+    nav { padding: 1rem 1.2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-divider { padding: 0 1rem; }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost { width: 160px; font-size: 0.65rem; padding: 0.9rem 1rem !important; }
+  }
 </style>
 </head>
 <body>
