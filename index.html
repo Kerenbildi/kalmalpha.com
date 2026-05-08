@@ -1134,6 +1134,27 @@ function shareKalm() {
     .hero-actions { align-items: center; }
     .hero-divider { margin-top: 6rem !important; padding: 0 0.5rem; }
   }
+
+  @media (max-width: 600px) {
+    .hero-actions {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost {
+      width: 140px !important;
+      font-size: 0.6rem;
+      padding: 0.9rem 0.5rem !important;
+      letter-spacing: 0.08em;
+    }
+    .hero-divider {
+      order: 3;
+      width: 100%;
+      margin-top: 2.5rem !important;
+      padding: 0;
+    }
+  }
 </style>
 </head>
 <body>
