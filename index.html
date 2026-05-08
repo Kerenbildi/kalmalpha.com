@@ -1156,6 +1156,22 @@ function shareKalm() {
       padding: 0;
     }
   }
+
+  @media (min-width: 601px) {
+    .hero-actions {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost {
+      order: 1;
+    }
+    .hero-divider {
+      order: 3;
+      width: 100%;
+      margin-top: 2rem !important;
+    }
+  }
 </style>
 </head>
 <body>
