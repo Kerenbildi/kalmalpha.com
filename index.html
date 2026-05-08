@@ -1196,6 +1196,27 @@ function shareKalm() {
       margin-top: 0 !important;
     }
   }
+
+  @media (min-width: 601px) {
+    .hero-actions {
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-actions .btn-primary,
+    .hero-actions .btn-ghost {
+      order: 1;
+      margin-bottom: 0;
+    }
+    .hero-divider {
+      order: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 4rem !important;
+    }
+  }
 </style>
 </head>
 <body>
