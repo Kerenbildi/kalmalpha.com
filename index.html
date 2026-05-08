@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KALM · Reprogram Your Mind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --cream-deep: #F2EDE4;
+    --cream-darker: #E8E0D2;
+    --gold: #BFA06A;
+    --gold-light: #D4B87A;
+    --gold-dark: #8C6F3E;
+    --charcoal: #2C2820;
+    --charcoal-mid: #4A4238;
+    --charcoal-light: #7A6E62;
+    --white: #FFFFFF;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Jost', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE TEXTURE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.6;
+  }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; line-height: 1.2; }
+  
+  .display {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .display em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease;
+  }
+
+  nav.scrolled {
+    background: rgba(250, 247, 242, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--cream-darker);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-cta:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+  }
+
+  .hero-ornament {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+    margin: 0 auto 3rem;
+    animation: fadeDown 1.5s ease forwards;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+
+  .hero h1 {
+    animation: fadeUp 1s ease 0.5s both;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-sub {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-style: italic;
+    color: var(--charcoal-light);
+    max-width: 520px;
+    margin: 0 auto 3.5rem;
+    animation: fadeUp 1s ease 0.7s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: center;
+    animation: fadeUp 1s ease 0.9s both;
+  }
+
+  .hero-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0 2rem;
+    margin-top: 8rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2.8rem;
+    border: 1px solid var(--charcoal);
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-dark);
+    border-color: var(--gold-dark);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    background: transparent;
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.1rem 2rem;
+    border: 1px solid var(--cream-darker);
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-dark); }
+
+  .hero-divider span {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+    opacity: 0.5;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: pulse 2s ease infinite;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 3rem;
+    margin: 4rem auto;
+    max-width: 700px;
+  }
+
+  .divider-line { flex: 1; height: 1px; background: var(--cream-darker); }
+  .divider-mark {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+  }
+
+  /* ─── SECTION COMMON ─── */
+  section { padding: 7rem 2rem; }
+  
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+    max-width: 600px;
+  }
+
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ─── TRUTH STATEMENT ─── */
+  .truth {
+    background: var(--charcoal);
+    color: var(--cream);
+    text-align: center;
+    padding: 8rem 2rem;
+  }
+
+  .truth-quote {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.3;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--cream);
+  }
+
+  .truth-quote em { color: var(--gold-light); font-style: normal; }
+
+  .truth-attr {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { background: var(--cream-deep); }
+
+  .how-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .step.visible { opacity: 1; transform: translateY(0); }
+
+  .step-num {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    min-width: 3rem;
+  }
+
+  .step-content h4 {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .step-content p {
+    font-size: 0.9rem;
+    color: var(--charcoal-light);
+    line-height: 1.6;
+  }
+
+  .phone-mockup {
+    background: var(--charcoal);
+    border-radius: 36px;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    aspect-ratio: 9/16;
+    max-width: 280px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    border: 1px solid rgba(191, 160, 106, 0.3);
+    box-shadow: 0 40px 80px rgba(44, 40, 32, 0.3);
+  }
+
+  .phone-freq {
+    font-family: var(--serif);
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .phone-freq span {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+    font-family: var(--sans);
+    margin-top: 0.5rem;
+  }
+
+  .wave-viz {
+    width: 200px;
+    height: 60px;
+  }
+
+  .phone-affirmation {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--cream);
+    opacity: 0.7;
+    line-height: 1.5;
+    padding: 0 1rem;
+  }
+
+  .phone-timer {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--cream-darker);
+    max-width: 1100px;
+    margin: 4rem auto 0;
+  }
+
+  .feature {
+    background: var(--cream);
+    padding: 2.5rem;
+    transition: background 0.3s;
+  }
+
+  .feature:hover { background: var(--cream-deep); }
+
+  .feature-icon {
+    display: block;
+    margin-bottom: 1.2rem;
+    line-height: 0;
+  }
+
+  .feature-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .feature h4 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .feature p {
+    font-size: 0.875rem;
+    color: var(--charcoal-light);
+    line-height: 1.6;
+  }
+
+  /* ─── LANGUAGES ─── */
+  .lang-strip {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .lang-pill {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--charcoal-mid);
+    border: 1px solid var(--cream-darker);
+    padding: 0.5rem 1.2rem;
+    background: var(--cream);
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials {
+    background: var(--cream-deep);
+    text-align: center;
+  }
+
+  .testimonials-inner { max-width: 1100px; margin: 0 auto; }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .testimonial {
+    text-align: left;
+    padding: 2rem;
+    border: 1px solid var(--cream-darker);
+    background: var(--cream);
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-text {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--charcoal);
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonial-author {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+  }
+
+  /* ─── PRICING ─── */
+  .pricing {
+    text-align: center;
+    padding: 8rem 2rem;
+  }
+
+  .pricing-inner { max-width: 900px; margin: 0 auto; }
+
+  .pricing-toggle {
+    display: inline-flex;
+    border: 1px solid var(--cream-darker);
+    margin: 3rem 0;
+    overflow: hidden;
+  }
+
+  .toggle-btn {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.7rem 1.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--charcoal-light);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .toggle-btn.active {
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+
+  .pricing-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .price-card {
+    border: 1px solid var(--cream-darker);
+    padding: 3rem 2.5rem;
+    text-align: left;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+
+  .price-card:hover { border-color: var(--gold); }
+
+  .price-card.featured {
+    border-color: var(--gold);
+    background: var(--charcoal);
+    color: var(--cream);
+  }
+
+  .price-card.featured .price-label { color: var(--gold-light); }
+  .price-card.featured .price-desc { color: rgba(250, 247, 242, 0.6); }
+  .price-card.featured .price-feature { color: rgba(250, 247, 242, 0.8); }
+  .price-card.featured .price-feature::before { color: var(--gold); }
+
+  .price-badge {
+    position: absolute;
+    top: -1px; right: 2rem;
+    background: var(--gold);
+    color: var(--cream);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+  }
+
+  .price-label {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--charcoal-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .price-amount {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .price-amount sup {
+    font-size: 1.5rem;
+    vertical-align: super;
+    margin-right: 0.1em;
+  }
+
+  .price-period {
+    font-size: 0.8rem;
+    color: var(--charcoal-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .price-card.featured .price-period { color: rgba(250,247,242,0.5); }
+
+  .price-desc {
+    font-size: 0.875rem;
+    color: var(--charcoal-light);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .price-feature {
+    font-size: 0.85rem;
+    color: var(--charcoal-mid);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .price-feature::before {
+    content: '—';
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .pay-btn {
+    width: 100%;
+    padding: 1.1rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1px solid var(--charcoal);
+    background: var(--charcoal);
+    color: var(--cream);
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .pay-btn:hover { background: var(--gold-dark); border-color: var(--gold-dark); }
+
+  .price-card.featured .pay-btn {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--charcoal);
+  }
+
+  .price-card.featured .pay-btn:hover {
+    background: var(--gold-light);
+    border-color: var(--gold-light);
+  }
+
+  .pricing-note {
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    color: var(--charcoal-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pricing-note span::before {
+    content: '· ';
+    color: var(--gold);
+  }
+
+  /* ─── MODAL / CHECKOUT ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 40, 32, 0.7);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--cream);
+    max-width: 480px;
+    width: 100%;
+    padding: 3rem;
+    position: relative;
+    animation: modalIn 0.3s ease;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--charcoal-light);
+    line-height: 1;
+  }
+
+  .modal-title {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-sub {
+    font-size: 0.85rem;
+    color: var(--charcoal-light);
+    margin-bottom: 2rem;
+  }
+
+  .modal-amount {
+    background: var(--cream-deep);
+    border: 1px solid var(--cream-darker);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .modal-amount-label {
+    font-size: 0.8rem;
+    color: var(--charcoal-light);
+    font-family: var(--sans);
+  }
+
+  .modal-amount-price {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--charcoal);
+  }
+
+  #card-element {
+    border: 1px solid var(--cream-darker);
+    padding: 1rem 1.25rem;
+    background: white;
+    margin-bottom: 0.75rem;
+    transition: border-color 0.2s;
+  }
+
+  #card-element:focus-within { border-color: var(--gold); }
+  #card-errors { color: #c0392b; font-size: 0.8rem; min-height: 1.2rem; margin-bottom: 1.5rem; }
+
+  #submit-payment {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--charcoal);
+    color: var(--cream);
+    border: none;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #submit-payment:hover:not(:disabled) { background: var(--gold-dark); }
+  #submit-payment:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .checkout-secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--charcoal-light);
+  }
+
+  .success-state {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .success-title {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+  }
+
+  .success-sub {
+    font-size: 0.9rem;
+    color: var(--charcoal-light);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── FAQ ─── */
+  .faq {
+    background: var(--cream-deep);
+    padding: 7rem 2rem;
+  }
+
+  .faq-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--cream-darker);
+    padding: 1.5rem 0;
+  }
+
+  .faq-q {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+  }
+
+  .faq-q::after {
+    content: '+';
+    color: var(--gold);
+    font-size: 1.5rem;
+    font-family: var(--sans);
+    font-weight: 300;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+
+  .faq-a {
+    font-size: 0.9rem;
+    color: var(--charcoal-light);
+    line-height: 1.7;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+
+  .faq-item.open .faq-a { max-height: 300px; padding-top: 1rem; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--charcoal);
+    color: var(--cream);
+    padding: 5rem 3rem 3rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+    color: var(--cream);
+  }
+
+  .footer-logo em { color: var(--gold); font-style: normal; }
+
+  .footer-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    color: rgba(250, 247, 242, 0.4);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .footer-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(250, 247, 242, 0.25);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: scaleY(0); transform-origin: top; }
+    to { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes wavePulse {
+    0%, 100% { d: path("M0,30 C20,10 40,50 60,30 C80,10 100,50 120,30 C140,10 160,50 180,30 C200,10 220,50 240,30"); }
+    50% { d: path("M0,30 C20,50 40,10 60,30 C80,50 100,10 120,30 C140,50 160,10 180,30 C200,50 220,10 240,30"); }
+  }
+
+  .lang-switcher {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .lang-current {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--charcoal);
+    cursor: pointer;
+    border: 1px solid var(--cream-darker);
+    padding: 0.4rem 0.8rem;
+    background: transparent;
+    transition: border-color 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .lang-current:hover { border-color: var(--gold); color: var(--gold-dark); }
+
+  .lang-current::after {
+    content: '▾';
+    font-size: 0.6rem;
+    color: var(--gold);
+  }
+
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--cream);
+    border: 1px solid var(--cream-darker);
+    min-width: 130px;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(44,40,32,0.1);
+  }
+
+  .lang-dropdown.open { display: block; }
+
+  .lang-option {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--charcoal);
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    transition: background 0.15s;
+  }
+
+  .lang-option:hover { background: var(--cream-deep); }
+  .lang-option.active { color: var(--gold-dark); font-weight: 500; }
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .pricing-cards { grid-template-columns: 1fr; }
+    .how-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .phone-mockup { display: none; }
+    .modal { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">K<span>α</span>LM</a>
+  <div class="lang-switcher">
+    <div class="lang-current" id="langCurrent" onclick="toggleLangDropdown()">EN</div>
+    <div class="lang-dropdown" id="langDropdown">
+      <button class="lang-option active" onclick="setLang('en')">English</button>
+      <button class="lang-option" onclick="setLang('fr')">Français</button>
+      <button class="lang-option" onclick="setLang('de')">Deutsch</button>
+      <button class="lang-option" onclick="setLang('es')">Español</button>
+      <button class="lang-option" onclick="setLang('he')">עברית</button>
+    </div>
+    <a href="#pricing" class="nav-cta" id="nav-cta-btn" data-t="navCta">Get the App</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-ornament"></div>
+  <p class="hero-eyebrow" data-t="eyebrow">Wellness · Reprogramming · Morning and Night</p>
+  <h1 class="display" data-t="heroTitle">Your mind, <em>reset</em><br>morning and night</h1>
+  <p class="hero-sub" data-t="heroSub">Personalized affirmations. Schumann resonance. The morning that changes everything.</p>
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-primary" data-t="heroCta">Begin your practice</a>
+    <div class="hero-divider">
+      <div class="scroll-line"></div>
+      <span data-t="heroScroll">Discover</span>
+    </div>
+    <a href="#how" class="btn-ghost" data-t="heroHow">How it works</a>
+  </div>
+</section>
+
+<!-- TRUTH STATEMENT -->
+<div class="truth">
+  <p class="truth-quote" data-t="truthQuote">Most mornings don't fail you.<br>The <em>night before</em> does.</p>
+  <p class="truth-attr">KALM · Subconscious Reprogramming</p>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <div>
+      <p class="section-label" data-t="practiceLabel">The Practice</p>
+      <h2 class="section-title" data-t="practiceTitle">Your session.<br><em>Your pace.</em></h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <h4 data-t="step1Title">Your affirmations, written by AI</h4>
+            <p data-t="step1">Tell KALM who you want to become. It generates a personal script in your language, words that sound like you, not a wellness manual.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <h4 data-t="step2Title">Screen dims. Schumann begins.</h4>
+            <p data-t="step2">7.83Hz, Earth's own frequency. The screen fades to protect your melatonin. Your nervous system settles. You are ready.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <h4 data-t="step3Title">Your voice. Your words.</h4>
+            <p data-t="step3">Record your own voice reading your affirmations. Research shows your own voice is 40% more effective at reaching the subconscious.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <h4 data-t="step4Title">Wake up different. Fall asleep lighter.</h4>
+            <p data-t="step4">A gentle bell opens and closes each session. Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="phone-mockup">
+        <div class="phone-freq">
+          7.83<span>Schumann Hz</span>
+        </div>
+        <svg class="wave-viz" viewBox="0 0 240 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path id="wavePath" d="M0,30 C20,10 40,50 60,30 C80,10 100,50 120,30 C140,10 160,50 180,30 C200,10 220,50 240,30" stroke="#BFA06A" stroke-width="1.5" fill="none" opacity="0.8">
+            <animate attributeName="d" dur="1.27s" repeatCount="indefinite"
+              values="M0,30 C20,10 40,50 60,30 C80,10 100,50 120,30 C140,10 160,50 180,30 C200,10 220,50 240,30;
+                      M0,30 C20,50 40,10 60,30 C80,50 100,10 120,30 C140,50 160,10 180,30 C200,50 220,10 240,30;
+                      M0,30 C20,10 40,50 60,30 C80,10 100,50 120,30 C140,10 160,50 180,30 C200,10 220,50 240,30"/>
+          </path>
+          <path d="M0,30 C20,10 40,50 60,30 C80,10 100,50 120,30 C140,10 160,50 180,30 C200,10 220,50 240,30" stroke="#BFA06A" stroke-width="0.5" fill="none" opacity="0.3">
+            <animate attributeName="d" dur="1.27s" repeatCount="indefinite" begin="0.3s"
+              values="M0,30 C20,15 40,45 60,30 C80,15 100,45 120,30 C140,15 160,45 180,30 C200,15 220,45 240,30;
+                      M0,30 C20,45 40,15 60,30 C80,45 100,15 120,30 C140,45 160,15 180,30 C200,45 220,15 240,30;
+                      M0,30 C20,15 40,45 60,30 C80,15 100,45 120,30 C140,15 160,45 180,30 C200,15 220,45 240,30"/>
+          </path>
+        </svg>
+        <p class="phone-affirmation">"I wake up clear, grounded, and ready to create something that matters."</p>
+        <p class="phone-timer">5 · 10 · 15 min</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section style="padding: 7rem 2rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <p class="section-label" style="text-align:center;" data-t="featuresLabel">Everything in the App</p>
+    <h2 class="section-title" style="text-align:center; margin: 0 auto 0;" data-t="featuresTitle">
+      Built for the moments before sleep<br>and <em>after waking</em>
+    </h2>
+    <div class="features-grid">
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L13.5 9H20L14.5 13.5L16.5 20.5L12 16L7.5 20.5L9.5 13.5L4 9H10.5L12 2Z" stroke="#BFA06A" stroke-width="1" fill="none"/></svg></span>
+        <h4 data-t="f1title">AI Affirmation Scripts</h4>
+        <p data-t="f1">Tell us your intention. We write words that sound like you, not spiritual platitudes. Personal, specific, yours.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#BFA06A" stroke-width="1"/><circle cx="12" cy="12" r="3" stroke="#BFA06A" stroke-width="1"/></svg></span>
+        <h4 data-t="f2title">Schumann Frequency · 7.83Hz</h4>
+        <p data-t="f2">Earth's resonance, embedded in your session. The frequency your brain naturally syncs to during deep states.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5" stroke="#BFA06A" stroke-width="1"/><path d="M12 7V5M12 19v-2M7 12H5M19 12h-2M8.5 8.5L7 7M17 17l-1.5-1.5M15.5 8.5L17 7M7 17l1.5-1.5" stroke="#BFA06A" stroke-width="1" stroke-linecap="round"/></svg></span>
+        <h4 data-t="f3title">Voice Recording</h4>
+        <p data-t="f3">Record yourself reading your affirmations. Your own voice bypasses the critical mind. Science, not spirituality.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="13" rx="1" stroke="#BFA06A" stroke-width="1"/><path d="M3 13h18" stroke="#BFA06A" stroke-width="1"/><path d="M8 20h8" stroke="#BFA06A" stroke-width="1" stroke-linecap="round"/></svg></span>
+        <h4 data-t="f4title">Screen Dimming</h4>
+        <p data-t="f4">Automatic darkness during your session. Your melatonin stays intact. Your eyes stay closed. Your mind stays open.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#BFA06A" stroke-width="1"/><path d="M12 7v5l3 2" stroke="#BFA06A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h4 data-t="f5title">Session Length: 5, 10 or 15 min</h4>
+        <p data-t="f5">Choose what fits your rhythm. Five minutes before bed. Fifteen minutes on a slow morning. The practice works at every length.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3L14 9H20L15 13L17 19L12 15L7 19L9 13L4 9H10L12 3Z" stroke="#BFA06A" stroke-width="1" stroke-linejoin="round" fill="none"/><path d="M12 8v7M9 12h6" stroke="#BFA06A" stroke-width="0.75" stroke-linecap="round"/></svg></span>
+        <h4 data-t="f6title">Streak Tracker</h4>
+        <p data-t="f6">21 days to a habit. 90 days to a new identity. Morning or night, the streak keeps you honest, gently.</p>
+      </div>
+      <div class="feature">
+        <span class="feature-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12C5 8.13 8.13 5 12 5s7 3.13 7 7-3.13 7-7 7" stroke="#BFA06A" stroke-width="1" stroke-linecap="round"/><path d="M5 12c0 3.87 3.13 7 7 7" stroke="#BFA06A" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 2"/><path d="M12 5c-2 2-3 4.5-3 7s1 5 3 7M12 5c2 2 3 4.5 3 7s-1 5-3 7" stroke="#BFA06A" stroke-width="1"/><path d="M5 12h14" stroke="#BFA06A" stroke-width="1"/></svg></span>
+        <h4 data-t="f7title">Five Languages</h4>
+        <p data-t="f7">English, French, German, Spanish, Hebrew. Your subconscious speaks the language you grew up dreaming in.</p>
+      </div>
+    </div>
+    <div class="lang-strip">
+      <span class="lang-pill">English</span>
+      <span class="lang-pill">Français</span>
+      <span class="lang-pill">Deutsch</span>
+      <span class="lang-pill">Español</span>
+      <span class="lang-pill">עברית</span>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <p class="section-label" data-t="testimonialsLabel">Early Users</p>
+    <h2 class="section-title" style="margin: 0 auto; text-align: center;" data-t="testimonialsTitle">
+      The morning <em>after</em>
+    </h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"I've tried every meditation app. KALM is the first one that actually reprograms something. I don't know how, but I wake up different."</p>
+        <p class="testimonial-author">Miriam L. · Zürich</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"Using it in Hebrew, my mother tongue. Something about hearing my own voice in the language of my childhood just... lands."</p>
+        <p class="testimonial-author">Shira K. · Tel Aviv</p>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-text">"Three weeks in. The anxiety that used to hit me the moment I woke up is quieter now. That alone is worth everything."</p>
+        <p class="testimonial-author">Sophie M. · Geneva</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-inner">
+    <p class="section-label" data-t="pricingLabel">Pricing</p>
+    <h2 class="section-title" style="margin: 0 auto; text-align: center;" data-t="pricingTitle">
+      One payment.<br><em>A lifetime of mornings.</em>
+    </h2>
+
+    <div class="pricing-cards">
+      <div class="price-card">
+        <p class="price-label" data-t="essentialLabel">Essential</p>
+        <div class="price-amount"><sup>CHF</sup>9</div>
+        <p class="price-period" data-t="essentialPeriod">one-time payment</p>
+        <p class="price-desc" data-t="essentialDesc">The full KALM experience. No subscription. No renewal. Yours forever.</p>
+        <ul class="price-features">
+          <li class="price-feature">AI affirmation script generator</li>
+          <li class="price-feature">Schumann frequency 7.83Hz</li>
+          <li class="price-feature">Screen dimming during session</li>
+          <li class="price-feature">Streak tracker</li>
+          <li class="price-feature">5 languages</li>
+        </ul>
+        <button class="pay-btn" data-t="essentialCta" onclick="openCheckout('essential', 9)">Begin for CHF 9</button>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-badge" data-t="ritualBadge">Most Complete</div>
+        <p class="price-label" data-t="ritualLabel">Full Ritual</p>
+        <div class="price-amount"><sup>CHF</sup>19</div>
+        <p class="price-period" data-t="ritualPeriod">one-time payment</p>
+        <p class="price-desc" data-t="ritualDesc">Everything in Essential, plus voice recording and advanced session customization.</p>
+        <ul class="price-features">
+          <li class="price-feature">Everything in Essential</li>
+          <li class="price-feature">Voice recording in your own voice</li>
+          <li class="price-feature">Bell chimes at session start & close</li>
+          <li class="price-feature">Session length: 5, 10 or 15 minutes</li>
+          <li class="price-feature">Priority support</li>
+        </ul>
+        <button class="pay-btn" data-t="ritualCta" onclick="openCheckout('ritual', 19)">Begin for CHF 19</button>
+      </div>
+    </div>
+
+    <div class="pricing-note">
+      <span data-t="pricingNote1">One-time payment, no subscription</span>
+      <span data-t="pricingNote2">Secure checkout via Stripe</span>
+      <span data-t="pricingNote3">Instant access after payment</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <p class="section-label" data-t="faqLabel">Questions</p>
+    <h2 class="section-title" style="margin-bottom: 3rem;" data-t="faqTitle">What people ask<br>before they <em>begin</em></h2>
+
+    <div class="faq-item">
+      <p class="faq-q" data-t="faq1q">Does it really work while I sleep?</p>
+      <div class="faq-a" data-t="faq1a">The science of subconscious reprogramming shows that the hypnagogic state, the threshold between waking and sleep, is when your brain is most receptive to new patterns. KALM is built for both ends of that window: falling asleep and waking up.</div>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q" data-t="faq2q">Why does my own voice matter?</p>
+      <div class="faq-a" data-t="faq2a">Research in psychology and neuroscience consistently shows that hearing your own voice triggers different neural pathways than hearing a stranger's. When you record yourself saying your affirmations, the brain processes them as memory, not instruction. That is the difference.</div>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q" data-t="faq3q">What is Schumann resonance and will I hear it?</p>
+      <div class="faq-a" data-t="faq3a">7.83Hz is the electromagnetic resonance of the Earth's atmosphere, the frequency the planet itself vibrates at. It corresponds closely to human alpha and theta brainwave states associated with deep relaxation, creativity, and receptivity. You will not hear it directly because 7.83Hz falls below the threshold of human hearing, which begins around 20Hz. The body responds to it through electromagnetic entrainment, not through the ears. This is why KALM plays calm ambient music alongside it: your ears have something to rest on, your nervous system settles, and the frequency does its work underneath. Both are running simultaneously throughout your session.</div>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q" data-t="faq4q">Is this a subscription?</p>
+      <div class="faq-a" data-t="faq4a">No. KALM is a one-time payment. You pay once, CHF 9 or CHF 19, and the app is yours. No recurring charge. No reminders. No guilt.</div>
+    </div>
+    <div class="faq-item">
+      <p class="faq-q" data-t="faq5q">Which languages are supported?</p>
+      <div class="faq-a" data-t="faq5a">English, French, German, Spanish, and Hebrew. The AI generates your affirmation script in whichever language you choose, including languages where the syntax and emotional register differ significantly from English.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="background: var(--charcoal); padding: 8rem 2rem; text-align: center;">
+  <div class="hero-ornament" style="background: linear-gradient(to bottom, transparent, rgba(191,160,106,0.5));"></div>
+  <p style="font-family: var(--sans); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;" data-t="ctaLabel">Begin Today</p>
+  <h2 style="font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; color: var(--cream); margin-bottom: 1.5rem; line-height: 1.2;" data-t="ctaTitle">
+    Tonight. Tomorrow morning.<br><em style="color: var(--gold-light);">Every day after.</em>
+  </h2>
+  <p style="font-family: var(--serif); font-style: italic; color: rgba(250,247,242,0.5); font-size: 1.1rem; margin-bottom: 3rem;" data-t="ctaSub">One payment. No subscription. Yours forever.</p>
+  <a href="#pricing" class="btn-primary" style="border-color: var(--gold); background: var(--gold); color: var(--charcoal);" data-t="ctaBtn">Begin your practice</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo">K<em>α</em>LM</p>
+  <p class="footer-tagline" data-t="footerTagline">Subconscious reprogramming for the modern mind</p>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+    <a href="kalm-reprogram.html">Open App</a>
+  </div>
+  <p class="footer-copy">© 2025 KALM. Made with intention.</p>
+</footer>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    
+    <div id="checkoutForm">
+      <h3 class="modal-title" data-t="checkoutTitle">Complete your practice</h3>
+      <p class="modal-sub" data-t="checkoutSub">One payment. Instant access. No subscription.</p>
+
+      <div class="modal-amount">
+        <span class="modal-amount-label" id="modal-plan-name">KALM Essential</span>
+        <span class="modal-amount-price" id="modal-price">CHF 9</span>
+      </div>
+
+      <div id="card-element"></div>
+      <div id="card-errors"></div>
+
+      <button id="submit-payment" onclick="handlePayment()">
+        <span id="btn-text">Pay & unlock KALM</span>
+      </button>
+
+      <div class="checkout-secure">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0L1 2.5v4c0 3.1 2.1 6 5 7 2.9-1 5-3.9 5-7v-4L6 0z" fill="currentColor" opacity="0.5"/></svg>
+        Secured by Stripe · SSL encrypted
+      </div>
+    </div>
+
+    <div id="successState" class="success-state" style="display:none;">
+      <span class="success-icon">✦</span>
+      <h3 class="success-title" data-t="successTitle">KALM is yours</h3>
+      <p class="success-sub" data-t="successSub">Thank you. Your practice begins tonight.<br>Open the app and set your first session.</p>
+      <a href="kalm-reprogram.html" class="btn-primary" style="display:inline-block;" data-t="openApp">Open KALM →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ─── STRIPE SETUP ─── */
+// IMPORTANT: Replace with your actual Stripe publishable key
+const STRIPE_KEY = 'pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE';
+
+let stripe, cardElement, currentPlan = 'essential', currentAmount = 9;
+
+function initStripe() {
+  try {
+    stripe = Stripe(STRIPE_KEY);
+    const elements = stripe.elements({
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap' }]
+    });
+
+    cardElement = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: "'Jost', sans-serif",
+          fontSize: '15px',
+          color: '#2C2820',
+          fontWeight: '300',
+          '::placeholder': { color: '#7A6E62' },
+        },
+        invalid: { color: '#c0392b' }
+      },
+      hidePostalCode: false
+    });
+
+    cardElement.mount('#card-element');
+
+    cardElement.on('change', function(event) {
+      document.getElementById('card-errors').textContent = event.error ? event.error.message : '';
+    });
+  } catch(e) {
+    document.getElementById('card-element').innerHTML = '<p style="color:#7A6E62;font-size:0.85rem;padding:0.5rem 0;">⚠️ Add your Stripe publishable key to enable payments.</p>';
+  }
+}
+
+/* ─── CHECKOUT ─── */
+function openCheckout(plan, amount) {
+  currentPlan = plan;
+  currentAmount = amount;
+
+  const planNames = { essential: 'KALM Essential', ritual: 'KALM Full Ritual' };
+  document.getElementById('modal-plan-name').textContent = planNames[plan];
+  document.getElementById('modal-price').textContent = 'CHF ' + amount;
+
+  document.getElementById('checkoutModal').classList.add('open');
+  document.getElementById('checkoutForm').style.display = 'block';
+  document.getElementById('successState').style.display = 'none';
+  document.body.style.overflow = 'hidden';
+
+  if (!stripe) initStripe();
+}
+
+function closeCheckout() {
+  document.getElementById('checkoutModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('checkoutModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+async function handlePayment() {
+  const btn = document.getElementById('submit-payment');
+  const btnText = document.getElementById('btn-text');
+  
+  if (!stripe || !cardElement) {
+    document.getElementById('card-errors').textContent = 'Payment system not loaded. Please add your Stripe key.';
+    return;
+  }
+
+  btn.disabled = true;
+  btnText.textContent = 'Processing...';
+
+  try {
+    // In production: call your backend to create a PaymentIntent
+    // const { clientSecret } = await fetch('/create-payment-intent', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ amount: currentAmount * 100, currency: 'chf', plan: currentPlan })
+    // }).then(r => r.json());
+
+    // DEMO: Simulate success for testing UI
+    // Replace this block with real stripe.confirmCardPayment() call
+    setTimeout(() => {
+      // Set tier in localStorage so the app knows what's unlocked
+      const tier = currentPlan === 'ritual' ? 'ritual' : 'essential';
+      localStorage.setItem('kalm_tier', tier);
+      document.getElementById('checkoutForm').style.display = 'none';
+      document.getElementById('successState').style.display = 'block';
+      btn.disabled = false;
+      btnText.textContent = 'Pay & unlock KALM';
+    }, 1500);
+
+    /* PRODUCTION CODE (uncomment when you have a backend):
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: cardElement }
+    });
+
+    if (result.error) {
+      document.getElementById('card-errors').textContent = result.error.message;
+      btn.disabled = false;
+      btnText.textContent = 'Pay & unlock KALM';
+    } else if (result.paymentIntent.status === 'succeeded') {
+      document.getElementById('checkoutForm').style.display = 'none';
+      document.getElementById('successState').style.display = 'block';
+    }
+    */
+
+  } catch (err) {
+    document.getElementById('card-errors').textContent = 'An error occurred. Please try again.';
+    btn.disabled = false;
+    btnText.textContent = 'Pay & unlock KALM';
+  }
+}
+
+/* ─── LANGUAGE SYSTEM ─── */
+const TRANSLATIONS = {
+  en: {
+    navCta: 'Get the App',
+    eyebrow: 'Wellness · Reprogramming · Morning and Night',
+    heroTitle: 'Your mind, <em>reset</em><br>morning and night',
+    heroSub: 'Personalized affirmations. Schumann resonance. The morning that changes everything.',
+    heroCta: 'Begin your practice',
+    heroHow: 'How it works',
+    heroScroll: 'Discover',
+    truthQuote: "Most mornings don't fail you.<br>The <em>night before</em> does.",
+    practiceLabel: 'The Practice',
+    practiceTitle: 'Your session.<br><em>Your pace.</em>',
+    step1Title: 'Your affirmations, written by AI',
+    step1: 'Tell KALM who you want to become. It generates a personal script in your language, words that sound like you, not a wellness manual.',
+    step2Title: 'Screen dims. Schumann begins.',
+    step2: '7.83Hz, Earth\'s own frequency. The screen fades to protect your melatonin. Your nervous system settles. You are ready.',
+    step3Title: 'Your voice. Your words.',
+    step3: 'Record your own voice reading your affirmations. Research shows your own voice is 40% more effective at reaching the subconscious.',
+    step4Title: 'Wake up different. Fall asleep lighter.',
+    step4: 'A gentle bell opens and closes each session. Use KALM at night to release the day, in the morning to set your intention. The streak tracker keeps the ritual alive.',
+    featuresLabel: 'Everything in the App',
+    featuresTitle: 'Built for the moments before sleep<br>and <em>after waking</em>',
+    f1title: 'AI Affirmation Scripts',
+    f1: 'Tell us your intention. We write words that sound like you, not spiritual platitudes. Personal, specific, yours.',
+    f2title: 'Schumann Frequency · 7.83Hz',
+    f2: "Earth's resonance, embedded in your session. The frequency your brain naturally syncs to during deep states.",
+    f3title: 'Voice Recording',
+    f3: 'Record yourself reading your affirmations. Your own voice bypasses the critical mind. Science, not spirituality.',
+    f4title: 'Screen Dimming',
+    f4: 'Automatic darkness during your session. Your melatonin stays intact. Your eyes stay closed. Your mind stays open.',
+    f5title: 'Session Length: 5, 10 or 15 min',
+    f5: 'Choose what fits your rhythm. Five minutes before bed. Fifteen minutes on a slow morning. The practice works at every length.',
+    f6title: 'Streak Tracker',
+    f6: '21 days to a habit. 90 days to a new identity. Morning or night, the streak keeps you honest, gently.',
+    f7title: 'Five Languages',
+    f7: 'English, French, German, Spanish, Hebrew. Your subconscious speaks the language you grew up dreaming in.',
+    testimonialsLabel: 'Early Users',
+    testimonialsTitle: 'The morning <em>after</em>',
+    pricingLabel: 'Pricing',
+    pricingTitle: 'One payment.<br><em>A lifetime of mornings.</em>',
+    essentialLabel: 'Essential',
+    essentialPeriod: 'one-time payment',
+    essentialDesc: 'The full KALM experience. No subscription. No renewal. Yours forever.',
+    essentialCta: 'Begin for CHF 9',
+    ritualLabel: 'Full Ritual',
+    ritualBadge: 'Most Complete',
+    ritualPeriod: 'one-time payment',
+    ritualDesc: 'Everything in Essential, plus voice recording and advanced session customization.',
+    ritualCta: 'Begin for CHF 19',
+    pricingNote1: 'One-time payment, no subscription',
+    pricingNote2: 'Secure checkout via Stripe',
+    pricingNote3: 'Instant access after payment',
+    faqLabel: 'Questions',
+    faqTitle: 'What people ask<br>before they <em>begin</em>',
+    faq1q: 'Does it really work while I sleep?',
+    faq1a: 'The science of subconscious reprogramming shows that the hypnagogic state, the threshold between waking and sleep, is when your brain is most receptive to new patterns. KALM is built for both ends of that window: falling asleep and waking up.',
+    faq2q: 'Why does my own voice matter?',
+    faq2a: "Research in psychology and neuroscience consistently shows that hearing your own voice triggers different neural pathways than hearing a stranger's. When you record yourself saying your affirmations, the brain processes them as memory, not instruction. That is the difference.",
+    faq3q: 'What is Schumann resonance and will I hear it?',
+    faq3a: '7.83Hz is the electromagnetic resonance of the Earth\'s atmosphere, the frequency the planet itself vibrates at. It corresponds closely to human alpha and theta brainwave states associated with deep relaxation, creativity, and receptivity. You will not hear it directly because 7.83Hz falls below the threshold of human hearing, which begins around 20Hz. The body responds to it through electromagnetic entrainment, not through the ears. This is why KALM plays calm ambient music alongside it: your ears have something to rest on, your nervous system settles, and the frequency does its work underneath. Both are running simultaneously throughout your session.',
+    faq4q: 'Is this a subscription?',
+    faq4a: 'No. KALM is a one-time payment. You pay once, CHF 9 or CHF 19, and the app is yours. No recurring charge. No reminders. No guilt.',
+    faq5q: 'Which languages are supported?',
+    faq5a: 'English, French, German, Spanish, and Hebrew. The AI generates your affirmation script in whichever language you choose, including languages where the syntax and emotional register differ significantly from English.',
+    ctaLabel: 'Begin Today',
+    ctaTitle: 'Tonight. Tomorrow morning.<br><em>Every day after.</em>',
+    ctaSub: 'One payment. No subscription. Yours forever.',
+    ctaBtn: 'Begin your practice',
+    footerTagline: 'Subconscious reprogramming for the modern mind',
+    footerCopy: '© 2025 KALM. Made with intention.',
+    checkoutTitle: 'Complete your practice',
+    checkoutSub: 'One payment. Instant access. No subscription.',
+    checkoutPay: 'Pay & unlock KALM',
+    checkoutSecure: 'Secured by Stripe · SSL encrypted',
+    successTitle: 'KALM is yours',
+    successSub: 'Thank you. Your practice begins tonight.<br>Open the app and set your first session.',
+    openApp: 'Open KALM →',
+  },
+  fr: {
+    navCta: "Obtenir l'App",
+    eyebrow: 'Bien-être · Reprogrammation · Matin et Soir',
+    heroTitle: 'Ton esprit, <em>réinitialisé</em><br>matin et soir',
+    heroSub: "Affirmations personnalisées. Résonance de Schumann. Le matin qui change tout.",
+    heroCta: 'Commencer ta pratique',
+    heroHow: 'Comment ça marche',
+    heroScroll: 'Découvrir',
+    truthQuote: "La plupart des matins ne t'échouent pas.<br>C'est <em>la veille</em> qui le fait.",
+    practiceLabel: 'La Pratique',
+    practiceTitle: 'Ta session.<br><em>Ton rythme.</em>',
+    step1Title: 'Tes affirmations, écrites par IA',
+    step1: 'Dis à KALM qui tu veux devenir. Il génère un script personnel dans ta langue, des mots qui te ressemblent, pas un manuel de bien-être.',
+    step2Title: "L'écran s'assombrit. Schumann commence.",
+    step2: "7.83Hz, la fréquence propre de la Terre. L'écran s'estompe pour protéger ta mélatonine. Ton système nerveux se stabilise. Tu es prêt.",
+    step3Title: 'Ta voix. Tes mots.',
+    step3: 'Enregistre ta propre voix lisant tes affirmations. La recherche montre que ta propre voix est 40% plus efficace pour atteindre le subconscient.',
+    step4Title: 'Réveille-toi différent. Endors-toi plus léger.',
+    step4: "Une cloche douce ouvre et ferme chaque session. Utilise KALM le soir pour libérer la journée, le matin pour fixer ton intention. Le compteur de série maintient le rituel vivant.",
+    featuresLabel: "Tout dans l'App",
+    featuresTitle: 'Conçu pour les moments avant le sommeil<br>et <em>après le réveil</em>',
+    f1title: "Scripts d'Affirmations IA",
+    f1: "Dis-nous ton intention. Nous écrivons des mots qui te ressemblent, pas des platitudes spirituelles. Personnel, spécifique, le tien.",
+    f2title: 'Fréquence Schumann · 7.83Hz',
+    f2: "La résonance de la Terre, intégrée dans ta session. La fréquence avec laquelle ton cerveau se synchronise naturellement pendant les états profonds.",
+    f3title: 'Enregistrement Vocal',
+    f3: "Enregistre-toi en lisant tes affirmations. Ta propre voix contourne l'esprit critique. La science, pas la spiritualité.",
+    f4title: "Assombrissement de l'Écran",
+    f4: "Obscurité automatique pendant ta session. Ta mélatonine reste intacte. Tes yeux restent fermés. Ton esprit reste ouvert.",
+    f5title: 'Durée de Session: 5, 10 ou 15 min',
+    f5: "Choisis ce qui convient à ton rythme. Cinq minutes avant le coucher. Quinze minutes un matin calme. La pratique fonctionne à chaque durée.",
+    f6title: 'Compteur de Série',
+    f6: "21 jours pour une habitude. 90 jours pour une nouvelle identité. Matin ou soir, la série te garde honnête, doucement.",
+    f7title: 'Cinq Langues',
+    f7: "Anglais, Français, Allemand, Espagnol, Hébreu. Ton subconscient parle la langue dans laquelle tu as grandi en rêvant.",
+    testimonialsLabel: 'Premiers Utilisateurs',
+    testimonialsTitle: 'Le matin <em>après</em>',
+    pricingLabel: 'Tarifs',
+    pricingTitle: 'Un paiement.<br><em>Une vie de matins.</em>',
+    essentialLabel: 'Essentiel',
+    essentialPeriod: 'paiement unique',
+    essentialDesc: "L'expérience KALM complète. Sans abonnement. Sans renouvellement. À toi pour toujours.",
+    essentialCta: 'Commencer pour CHF 9',
+    ritualLabel: 'Rituel Complet',
+    ritualBadge: 'Le Plus Complet',
+    ritualPeriod: 'paiement unique',
+    ritualDesc: "Tout dans Essentiel, plus l'enregistrement vocal et la personnalisation avancée.",
+    ritualCta: 'Commencer pour CHF 19',
+    pricingNote1: 'Paiement unique, sans abonnement',
+    pricingNote2: 'Paiement sécurisé via Stripe',
+    pricingNote3: 'Accès instantané après paiement',
+    faqLabel: 'Questions',
+    faqTitle: 'Ce que les gens demandent<br>avant de <em>commencer</em>',
+    faq1q: "Est-ce que ça fonctionne vraiment pendant que je dors?",
+    faq1a: "La science de la reprogrammation subconsciente montre que l'état hypnagogique, le seuil entre le réveil et le sommeil, est le moment où ton cerveau est le plus réceptif aux nouveaux schémas. KALM est conçu pour les deux extrémités de cette fenêtre: s'endormir et se réveiller.",
+    faq2q: 'Pourquoi ma propre voix est-elle importante?',
+    faq2a: "La recherche en psychologie et neurosciences montre systématiquement que le fait d'entendre sa propre voix déclenche des voies neurales différentes de celles d'un étranger. Quand tu enregistres tes affirmations, le cerveau les traite comme une mémoire, pas comme une instruction. C'est là toute la différence.",
+    faq3q: 'Qu\'est-ce que la résonance de Schumann et vais-je l\'entendre?',
+    faq3a: "7.83Hz est la résonance électromagnétique de l'atmosphère terrestre. Elle correspond étroitement aux états cérébraux alpha et thêta associés à la relaxation profonde. Tu ne l'entendras pas directement car 7.83Hz est en dessous du seuil de l'ouïe humaine, qui commence vers 20Hz. C'est pourquoi KALM joue une musique ambiante calme en parallèle: tes oreilles ont quelque chose sur quoi se reposer, ton système nerveux se stabilise, et la fréquence fait son travail en dessous.",
+    faq4q: "Est-ce un abonnement?",
+    faq4a: "Non. KALM est un paiement unique. Tu paies une fois, CHF 9 ou CHF 19, et l'app est à toi. Aucune charge récurrente. Aucun rappel. Aucune culpabilité.",
+    faq5q: 'Quelles langues sont supportées?',
+    faq5a: "Anglais, Français, Allemand, Espagnol et Hébreu. L'IA génère ton script d'affirmations dans la langue de ton choix.",
+    ctaLabel: "Commencer Aujourd'hui",
+    ctaTitle: 'Ce soir. Demain matin.<br><em>Chaque jour après.</em>',
+    ctaSub: 'Un paiement. Sans abonnement. À toi pour toujours.',
+    ctaBtn: 'Commencer ta pratique',
+    footerTagline: 'Reprogrammation subconsciente pour l\'esprit moderne',
+    footerCopy: '© 2025 KALM. Fait avec intention.',
+    checkoutTitle: 'Complète ta pratique',
+    checkoutSub: 'Un paiement. Accès instantané. Sans abonnement.',
+    checkoutPay: 'Payer & débloquer KALM',
+    checkoutSecure: 'Sécurisé par Stripe · Chiffrement SSL',
+    successTitle: 'KALM est à toi',
+    successSub: 'Merci. Ta pratique commence ce soir.<br>Ouvre l\'app et configure ta première session.',
+    openApp: 'Ouvrir KALM →',
+  },
+  de: {
+    navCta: 'App runterladen',
+    eyebrow: 'Wohlbefinden · Umprogrammierung · Morgen und Abend',
+    heroTitle: 'Dein Geist, <em>zurückgesetzt</em><br>morgens und abends',
+    heroSub: 'Personalisierte Affirmationen. Schumann-Resonanz. Der Morgen, der alles verändert.',
+    heroCta: 'Praxis beginnen',
+    heroHow: 'Wie es funktioniert',
+    heroScroll: 'Entdecken',
+    truthQuote: 'Die meisten Morgen scheitern nicht an dir.<br>Der <em>Abend davor</em> tut es.',
+    practiceLabel: 'Die Praxis',
+    practiceTitle: 'Deine Sitzung.<br><em>Dein Tempo.</em>',
+    step1Title: 'Deine Affirmationen, von KI geschrieben',
+    step1: 'Sag KALM, wer du werden möchtest. Es erstellt ein persönliches Skript in deiner Sprache, Worte, die sich nach dir anhören, nicht wie ein Wellness-Handbuch.',
+    step2Title: 'Bildschirm dimmt. Schumann beginnt.',
+    step2: '7.83Hz, die eigene Frequenz der Erde. Der Bildschirm verblasst, um dein Melatonin zu schützen. Dein Nervensystem beruhigt sich. Du bist bereit.',
+    step3Title: 'Deine Stimme. Deine Worte.',
+    step3: 'Nimm deine eigene Stimme beim Lesen deiner Affirmationen auf. Forschungen zeigen, dass deine eigene Stimme 40% effektiver das Unterbewusstsein erreicht.',
+    step4Title: 'Anders aufwachen. Leichter einschlafen.',
+    step4: 'Eine sanfte Glocke öffnet und schließt jede Sitzung. Nutze KALM abends, um den Tag loszulassen, und morgens, um deine Absicht zu setzen. Der Streak-Tracker hält das Ritual lebendig.',
+    featuresLabel: 'Alles in der App',
+    featuresTitle: 'Für die Momente vor dem Schlaf<br>und <em>nach dem Aufwachen</em>',
+    f1title: 'KI-Affirmationsskripte',
+    f1: 'Sag uns deine Absicht. Wir schreiben Worte, die sich nach dir anhören, keine spirituellen Plattitüden. Persönlich, spezifisch, deins.',
+    f2title: 'Schumann-Frequenz · 7.83Hz',
+    f2: 'Die Resonanz der Erde, eingebettet in deine Sitzung. Die Frequenz, mit der sich dein Gehirn bei tiefen Zuständen natürlich synchronisiert.',
+    f3title: 'Sprachaufnahme',
+    f3: 'Nimm dich selbst beim Lesen deiner Affirmationen auf. Deine eigene Stimme umgeht den kritischen Verstand. Wissenschaft, keine Spiritualität.',
+    f4title: 'Bildschirm-Dimmen',
+    f4: 'Automatische Dunkelheit während deiner Sitzung. Dein Melatonin bleibt intakt. Deine Augen bleiben geschlossen. Dein Geist bleibt offen.',
+    f5title: 'Sitzungslänge: 5, 10 oder 15 Min',
+    f5: 'Wähle, was zu deinem Rhythmus passt. Fünf Minuten vor dem Schlafengehen. Fünfzehn Minuten an einem ruhigen Morgen. Die Praxis funktioniert bei jeder Länge.',
+    f6title: 'Streak-Tracker',
+    f6: '21 Tage für eine Gewohnheit. 90 Tage für eine neue Identität. Morgens oder abends, der Streak hält dich sanft ehrlich.',
+    f7title: 'Fünf Sprachen',
+    f7: 'Englisch, Französisch, Deutsch, Spanisch, Hebräisch. Dein Unterbewusstsein spricht die Sprache, in der du aufgewachsen bist.',
+    testimonialsLabel: 'Erste Nutzer',
+    testimonialsTitle: 'Der Morgen <em>danach</em>',
+    pricingLabel: 'Preise',
+    pricingTitle: 'Eine Zahlung.<br><em>Ein Leben voller Morgen.</em>',
+    essentialLabel: 'Wesentlich',
+    essentialPeriod: 'Einmalzahlung',
+    essentialDesc: 'Das vollständige KALM-Erlebnis. Kein Abonnement. Keine Verlängerung. Für immer deins.',
+    essentialCta: 'Beginnen für CHF 9',
+    ritualLabel: 'Vollständiges Ritual',
+    ritualBadge: 'Am Vollständigsten',
+    ritualPeriod: 'Einmalzahlung',
+    ritualDesc: 'Alles in Wesentlich, plus Sprachaufnahme und erweiterte Anpassung.',
+    ritualCta: 'Beginnen für CHF 19',
+    pricingNote1: 'Einmalzahlung, kein Abonnement',
+    pricingNote2: 'Sicherer Checkout via Stripe',
+    pricingNote3: 'Sofortiger Zugang nach Zahlung',
+    faqLabel: 'Fragen',
+    faqTitle: 'Was Menschen fragen<br>bevor sie <em>beginnen</em>',
+    faq1q: 'Funktioniert es wirklich während ich schlafe?',
+    faq1a: 'Die Wissenschaft der Unterbewusstseinsumprogrammierung zeigt, dass der hypnagoge Zustand, die Schwelle zwischen Wachen und Schlafen, der Zeitpunkt ist, an dem dein Gehirn am empfänglichsten für neue Muster ist. KALM ist für beide Enden dieses Fensters gebaut: Einschlafen und Aufwachen.',
+    faq2q: 'Warum ist meine eigene Stimme wichtig?',
+    faq2a: 'Forschungen in Psychologie und Neurowissenschaften zeigen durchgängig, dass das Hören der eigenen Stimme andere neuronale Bahnen auslöst als die einer fremden Person. Wenn du deine Affirmationen aufnimmst, verarbeitet das Gehirn sie als Erinnerung, nicht als Anweisung. Das ist der Unterschied.',
+    faq3q: 'Was ist Schumann-Resonanz und werde ich sie hören?',
+    faq3a: '7.83Hz ist die elektromagnetische Resonanz der Erdatmosphäre. Sie entspricht eng den Alpha- und Theta-Hirnwellenzuständen, die mit tiefer Entspannung verbunden sind. Du wirst sie nicht direkt hören, da 7.83Hz unter der Hörschwelle des Menschen liegt, die bei etwa 20Hz beginnt. Deshalb spielt KALM gleichzeitig ruhige Ambient-Musik: Deine Ohren haben etwas zum Ausruhen, dein Nervensystem beruhigt sich, und die Frequenz wirkt darunter.',
+    faq4q: 'Ist das ein Abonnement?',
+    faq4a: 'Nein. KALM ist eine Einmalzahlung. Du zahlst einmal, CHF 9 oder CHF 19, und die App gehört dir. Keine wiederkehrenden Kosten. Keine Erinnerungen. Kein schlechtes Gewissen.',
+    faq5q: 'Welche Sprachen werden unterstützt?',
+    faq5a: 'Englisch, Französisch, Deutsch, Spanisch und Hebräisch. Die KI generiert dein Affirmationsskript in der von dir gewählten Sprache.',
+    ctaLabel: 'Heute Beginnen',
+    ctaTitle: 'Heute Abend. Morgen früh.<br><em>Jeden Tag danach.</em>',
+    ctaSub: 'Eine Zahlung. Kein Abonnement. Für immer deins.',
+    ctaBtn: 'Praxis beginnen',
+    footerTagline: 'Unterbewusstseinsumprogrammierung für den modernen Geist',
+    footerCopy: '© 2025 KALM. Mit Absicht gemacht.',
+    checkoutTitle: 'Schließe deine Praxis ab',
+    checkoutSub: 'Eine Zahlung. Sofortiger Zugang. Kein Abonnement.',
+    checkoutPay: 'Zahlen & KALM freischalten',
+    checkoutSecure: 'Gesichert durch Stripe · SSL-verschlüsselt',
+    successTitle: 'KALM gehört dir',
+    successSub: 'Danke. Deine Praxis beginnt heute Abend.<br>Öffne die App und richte deine erste Sitzung ein.',
+    openApp: 'KALM öffnen →',
+  },
+  es: {
+    navCta: 'Obtener la App',
+    eyebrow: 'Bienestar · Reprogramación · Mañana y Noche',
+    heroTitle: 'Tu mente, <em>reiniciada</em><br>mañana y noche',
+    heroSub: 'Afirmaciones personalizadas. Resonancia Schumann. La mañana que lo cambia todo.',
+    heroCta: 'Comenzar tu práctica',
+    heroHow: 'Cómo funciona',
+    heroScroll: 'Descubrir',
+    truthQuote: 'La mayoría de las mañanas no te fallan.<br>Lo hace <em>la noche anterior</em>.',
+    practiceLabel: 'La Práctica',
+    practiceTitle: 'Tu sesión.<br><em>Tu ritmo.</em>',
+    step1Title: 'Tus afirmaciones, escritas por IA',
+    step1: 'Dile a KALM quién quieres convertirte. Genera un guión personal en tu idioma, palabras que suenan como tú, no como un manual de bienestar.',
+    step2Title: 'La pantalla se atenúa. Schumann comienza.',
+    step2: '7.83Hz, la propia frecuencia de la Tierra. La pantalla se desvanece para proteger tu melatonina. Tu sistema nervioso se asienta. Estás listo.',
+    step3Title: 'Tu voz. Tus palabras.',
+    step3: 'Graba tu propia voz leyendo tus afirmaciones. La investigación muestra que tu propia voz es 40% más efectiva para llegar al subconsciente.',
+    step4Title: 'Despertarte diferente. Dormirte más ligero.',
+    step4: 'Una campana suave abre y cierra cada sesión. Usa KALM de noche para soltar el día, por la mañana para fijar tu intención. El rastreador de racha mantiene vivo el ritual.',
+    featuresLabel: 'Todo en la App',
+    featuresTitle: 'Construido para los momentos antes del sueño<br>y <em>después del despertar</em>',
+    f1title: 'Guiones de Afirmaciones IA',
+    f1: 'Cuéntanos tu intención. Escribimos palabras que suenan como tú, no platitudes espirituales. Personal, específico, tuyo.',
+    f2title: 'Frecuencia Schumann · 7.83Hz',
+    f2: 'La resonancia de la Tierra, integrada en tu sesión. La frecuencia con la que tu cerebro se sincroniza naturalmente durante los estados profundos.',
+    f3title: 'Grabación de Voz',
+    f3: 'Grábate leyendo tus afirmaciones. Tu propia voz evita la mente crítica. Ciencia, no espiritualidad.',
+    f4title: 'Atenuación de Pantalla',
+    f4: 'Oscuridad automática durante tu sesión. Tu melatonina permanece intacta. Tus ojos permanecen cerrados. Tu mente permanece abierta.',
+    f5title: 'Duración de Sesión: 5, 10 o 15 min',
+    f5: 'Elige lo que se adapta a tu ritmo. Cinco minutos antes de dormir. Quince minutos en una mañana tranquila. La práctica funciona en cualquier duración.',
+    f6title: 'Rastreador de Racha',
+    f6: '21 días para un hábito. 90 días para una nueva identidad. Mañana o noche, la racha te mantiene honesto, suavemente.',
+    f7title: 'Cinco Idiomas',
+    f7: 'Inglés, Francés, Alemán, Español, Hebreo. Tu subconsciente habla el idioma en el que creciste soñando.',
+    testimonialsLabel: 'Primeros Usuarios',
+    testimonialsTitle: 'La mañana <em>después</em>',
+    pricingLabel: 'Precios',
+    pricingTitle: 'Un pago.<br><em>Una vida de mañanas.</em>',
+    essentialLabel: 'Esencial',
+    essentialPeriod: 'pago único',
+    essentialDesc: 'La experiencia KALM completa. Sin suscripción. Sin renovación. Tuya para siempre.',
+    essentialCta: 'Comenzar por CHF 9',
+    ritualLabel: 'Ritual Completo',
+    ritualBadge: 'Más Completo',
+    ritualPeriod: 'pago único',
+    ritualDesc: 'Todo en Esencial, más grabación de voz y personalización avanzada.',
+    ritualCta: 'Comenzar por CHF 19',
+    pricingNote1: 'Pago único, sin suscripción',
+    pricingNote2: 'Pago seguro via Stripe',
+    pricingNote3: 'Acceso instantáneo después del pago',
+    faqLabel: 'Preguntas',
+    faqTitle: 'Lo que la gente pregunta<br>antes de <em>comenzar</em>',
+    faq1q: '¿Realmente funciona mientras duermo?',
+    faq1a: 'La ciencia de la reprogramación subconsciente muestra que el estado hipnagógico, el umbral entre el despertar y el sueño, es cuando tu cerebro es más receptivo a nuevos patrones. KALM está construido para ambos extremos de esa ventana: quedarse dormido y despertar.',
+    faq2q: '¿Por qué importa mi propia voz?',
+    faq2a: 'La investigación en psicología y neurociencia muestra constantemente que escuchar tu propia voz activa diferentes vías neurales que escuchar la de un extraño. Cuando grabas tus afirmaciones, el cerebro las procesa como memoria, no como instrucción. Esa es la diferencia.',
+    faq3q: '¿Qué es la resonancia Schumann y la voy a escuchar?',
+    faq3a: '7.83Hz es la resonancia electromagnética de la atmósfera terrestre. Corresponde estrechamente a los estados cerebrales alfa y theta asociados con la relajación profunda. No la escucharás directamente porque 7.83Hz está por debajo del umbral auditivo humano, que comienza alrededor de 20Hz. Por eso KALM reproduce música ambiental tranquila junto a ella: tus oídos tienen algo en qué descansar, tu sistema nervioso se asienta, y la frecuencia hace su trabajo por debajo.',
+    faq4q: '¿Es esto una suscripción?',
+    faq4a: 'No. KALM es un pago único. Pagas una vez, CHF 9 o CHF 19, y la app es tuya. Sin cargo recurrente. Sin recordatorios. Sin culpa.',
+    faq5q: '¿Qué idiomas son compatibles?',
+    faq5a: 'Inglés, Francés, Alemán, Español y Hebreo. La IA genera tu guión de afirmaciones en el idioma que elijas.',
+    ctaLabel: 'Comenzar Hoy',
+    ctaTitle: 'Esta noche. Mañana por la mañana.<br><em>Cada día después.</em>',
+    ctaSub: 'Un pago. Sin suscripción. Tuyo para siempre.',
+    ctaBtn: 'Comenzar tu práctica',
+    footerTagline: 'Reprogramación subconsciente para la mente moderna',
+    footerCopy: '© 2025 KALM. Hecho con intención.',
+    checkoutTitle: 'Completa tu práctica',
+    checkoutSub: 'Un pago. Acceso instantáneo. Sin suscripción.',
+    checkoutPay: 'Pagar y desbloquear KALM',
+    checkoutSecure: 'Seguro por Stripe · Cifrado SSL',
+    successTitle: 'KALM es tuyo',
+    successSub: 'Gracias. Tu práctica comienza esta noche.<br>Abre la app y configura tu primera sesión.',
+    openApp: 'Abrir KALM →',
+  },
+  he: {
+    navCta: 'הורד את האפליקציה',
+    eyebrow: 'בריאות · תכנות מחדש · בוקר וערב',
+    heroTitle: 'המוח שלך, <em>מאופס</em><br>בוקר וערב',
+    heroSub: 'אישורים אישיים. תהודת שומן. הבוקר שמשנה הכל.',
+    heroCta: 'התחל את התרגול שלך',
+    heroHow: 'איך זה עובד',
+    heroScroll: 'גלה',
+    truthQuote: 'רוב הבקרים לא כושלים בך.<br><em>הערב שלפני</em> הוא שעושה זאת.',
+    practiceLabel: 'התרגול',
+    practiceTitle: 'הסשן שלך.<br><em>הקצב שלך.</em>',
+    step1Title: 'האישורים שלך, נכתבו על ידי בינה מלאכותית',
+    step1: 'ספר ל-KALM מי אתה רוצה להיות. הוא יוצר תסריט אישי בשפה שלך, מילים שנשמעות כמוך, לא כמדריך בריאות.',
+    step2Title: 'המסך מתעמם. שומן מתחיל.',
+    step2: '7.83Hz, התדר של כדור הארץ עצמו. המסך מתעמם כדי להגן על המלטונין שלך. מערכת העצבים שלך מתייצבת. אתה מוכן.',
+    step3Title: 'הקול שלך. המילים שלך.',
+    step3: 'הקלט את קולך שלך קורא את האישורים שלך. מחקרים מראים שקולך שלך יעיל ב-40% יותר להגיע לתת-מודע.',
+    step4Title: 'התעורר שונה. הירדם קל יותר.',
+    step4: 'פעמון עדין פותח וסוגר כל סשן. השתמש ב-KALM בלילה לשחרר את היום, ובבוקר להגדיר את כוונתך. עוקב הרצף שומר על הטקס חי.',
+    featuresLabel: 'הכל באפליקציה',
+    featuresTitle: 'בנוי לרגעים לפני השינה<br>ו<em>אחרי ההתעוררות</em>',
+    f1title: 'תסריטי אישורים מבינה מלאכותית',
+    f1: 'ספר לנו את כוונתך. אנחנו כותבים מילים שנשמעות כמוך, לא כלי קליחות רוחניים. אישי, ספציפי, שלך.',
+    f2title: 'תדר שומן · 7.83Hz',
+    f2: 'תהודת כדור הארץ, מוטמעת בסשן שלך. התדר עמו המוח שלך מסתנכרן באופן טבעי במצבים עמוקים.',
+    f3title: 'הקלטת קול',
+    f3: 'הקלט את עצמך קורא את האישורים שלך. קולך שלך עוקף את המוח הביקורתי. מדע, לא רוחניות.',
+    f4title: 'עמעום מסך',
+    f4: 'חושך אוטומטי במהלך הסשן שלך. המלטונין שלך נשאר שלם. עיניך נשארות סגורות. מוחך נשאר פתוח.',
+    f5title: 'אורך סשן: 5, 10 או 15 דקות',
+    f5: 'בחר מה מתאים לקצב שלך. חמש דקות לפני השינה. חמש עשרה דקות בבוקר רגוע. התרגול עובד בכל אורך.',
+    f6title: 'עוקב רצף',
+    f6: '21 יום להרגל. 90 יום לזהות חדשה. בוקר או ערב, הרצף שומר אותך ישר, בעדינות.',
+    f7title: 'חמש שפות',
+    f7: 'אנגלית, צרפתית, גרמנית, ספרדית, עברית. התת-מודע שלך מדבר בשפה שגדלת לחלום בה.',
+    testimonialsLabel: 'משתמשים ראשונים',
+    testimonialsTitle: 'הבוקר <em>שאחרי</em>',
+    pricingLabel: 'מחירים',
+    pricingTitle: 'תשלום אחד.<br><em>חיים של בקרים.</em>',
+    essentialLabel: 'חיוני',
+    essentialPeriod: 'תשלום חד פעמי',
+    essentialDesc: 'חוויית KALM המלאה. ללא מנוי. ללא חידוש. שלך לנצח.',
+    essentialCta: 'התחל עבור CHF 9',
+    ritualLabel: 'טקס מלא',
+    ritualBadge: 'הכי מלא',
+    ritualPeriod: 'תשלום חד פעמי',
+    ritualDesc: 'הכל בחיוני, בנוסף להקלטת קול והתאמה אישית מתקדמת.',
+    ritualCta: 'התחל עבור CHF 19',
+    pricingNote1: 'תשלום חד פעמי, ללא מנוי',
+    pricingNote2: 'תשלום מאובטח דרך Stripe',
+    pricingNote3: 'גישה מיידית לאחר התשלום',
+    faqLabel: 'שאלות',
+    faqTitle: 'מה אנשים שואלים<br>לפני שהם <em>מתחילים</em>',
+    faq1q: 'האם זה באמת עובד בזמן שאני ישן?',
+    faq1a: 'מדע תכנות מחדש של התת-מודע מראה שמצב ההיפנגוגי, הסף בין ערות לשינה, הוא הזמן שבו המוח שלך הכי קשוב לדפוסים חדשים. KALM בנוי לשני קצוות החלון הזה: הירדמות והתעוררות.',
+    faq2q: 'למה הקול שלי חשוב?',
+    faq2a: 'מחקרים בפסיכולוגיה ובמדעי המוח מראים באופן עקבי שמשמיעת קולך שלך מפעילה נתיבים עצביים שונים מאשר שמיעת קולו של זר. כשאתה מקליט את האישורים שלך, המוח מעבד אותם כזיכרון, לא כהוראה. זה ההבדל.',
+    faq3q: 'מה היא תהודת שומן והאם אשמע אותה?',
+    faq3a: '7.83Hz היא התהודה האלקטרומגנטית של אטמוספירת כדור הארץ. היא תואמת מקרוב למצבי גלי מוח אלפא ותטא הקשורים להרפיה עמוקה. לא תשמע אותה ישירות כי 7.83Hz נמוכה מסף השמיעה האנושי, שמתחיל סביב 20Hz. לכן KALM מנגן מוזיקת אמביינט רגועה לצדה: לאוזניים שלך יש משהו לנוח עליו, מערכת העצבים שלך מתייצבת, והתדר עושה את עבודתו מתחת.',
+    faq4q: 'האם זה מנוי?',
+    faq4a: 'לא. KALM הוא תשלום חד פעמי. אתה משלם פעם אחת, CHF 9 או CHF 19, והאפליקציה שלך. ללא חיוב חוזר. ללא תזכורות. ללא אשמה.',
+    faq5q: 'אילו שפות נתמכות?',
+    faq5a: 'אנגלית, צרפתית, גרמנית, ספרדית ועברית. הבינה המלאכותית מייצרת את תסריט האישורים שלך בכל שפה שתבחר.',
+    ctaLabel: 'התחל היום',
+    ctaTitle: 'הלילה. מחר בבוקר.<br><em>כל יום אחרי.</em>',
+    ctaSub: 'תשלום אחד. ללא מנוי. שלך לנצח.',
+    ctaBtn: 'התחל את התרגול שלך',
+    footerTagline: 'תכנות מחדש של התת-מודע לנפש המודרנית',
+    footerCopy: '© 2025 KALM. נעשה בכוונה.',
+    checkoutTitle: 'השלם את התרגול שלך',
+    checkoutSub: 'תשלום אחד. גישה מיידית. ללא מנוי.',
+    checkoutPay: 'שלם ופתח KALM',
+    checkoutSecure: 'מאובטח על ידי Stripe · מוצפן SSL',
+    successTitle: 'KALM שלך',
+    successSub: 'תודה. התרגול שלך מתחיל הלילה.<br>פתח את האפליקציה והגדר את הסשן הראשון שלך.',
+    openApp: 'פתח KALM →',
+  }
+};
+
+let currentLang = localStorage.getItem('kalm_landing_lang') || 'en';
+
+function toggleLangDropdown() {
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.lang-switcher')) {
+    document.getElementById('langDropdown').classList.remove('open');
+  }
+});
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('kalm_landing_lang', lang);
+  document.getElementById('langDropdown').classList.remove('open');
+  document.getElementById('langCurrent').childNodes[0].textContent = lang.toUpperCase();
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.trim() !== '' && ['en','fr','de','es','he'][['English','Français','Deutsch','Español','עברית'].indexOf(btn.textContent.trim())] === lang);
+  });
+  applyTranslations(lang);
+}
+
+function applyTranslations(lang) {
+  const t = TRANSLATIONS[lang];
+  if (!t) return;
+  const dir = lang === 'he' ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('dir', dir);
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.getAttribute('data-t');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+}
+
+// Apply saved language on load
+applyTranslations(currentLang);
+document.getElementById('langCurrent').childNodes[0].textContent = currentLang.toUpperCase();
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ─── STEP ANIMATIONS ─── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 100 * i);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.step').forEach(el => observer.observe(el));
+
+/* ─── FAQ ─── */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+/* ─── SMOOTH SCROLL ─── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
