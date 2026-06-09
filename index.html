@@ -258,6 +258,66 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
 /* SCROLL ANIM */
 .fade{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
 .fade.in{opacity:1;transform:translateY(0);}
+
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-r { gap: 16px; }
+  .nl { display: none; }
+  .ndl { padding: 8px 16px; font-size: 11px; }
+
+  .hero-content { padding: 0 24px 56px; }
+  .hero-h1 { font-size: 48px; margin-bottom: 32px; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .hero-sub { font-size: 15px; max-width: 100%; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .btn-p { width: 100%; text-align: center; }
+  .hero-scroll { display: none; }
+  .hero-rings { display: none; }
+
+  .ticker-item { padding: 0 20px; gap: 20px; }
+
+  .science { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+  .stats { gap: 24px; flex-wrap: wrap; }
+
+  .photo-strip { height: 50vw; }
+  .photo-strip-overlay { padding: 0 24px; }
+  .pst-title { font-size: 28px; }
+
+  .windows { padding: 80px 24px; }
+  .win-title { font-size: 44px; }
+  .win-cards { grid-template-columns: 1fr; }
+  .wc-time { font-size: 52px; }
+
+  .steps { grid-template-columns: 1fr; gap: 40px; padding: 80px 24px; }
+  .steps-sticky { position: static; }
+  .steps-title { font-size: 36px; }
+
+  .quote-sec { padding: 80px 24px; }
+  .q-text { font-size: 22px; }
+
+  .showcase { grid-template-columns: 1fr; gap: 48px; padding: 80px 24px; }
+  .showcase-photo { height: 70vw; }
+
+  .pricing { padding: 80px 24px; }
+  .pricing-title { font-size: 44px; }
+  .pc-row { grid-template-columns: 1fr; }
+  .pc { padding: 40px 32px; }
+  .pc-price { font-size: 72px; }
+
+  .testi { padding: 80px 24px; }
+  .tg { grid-template-columns: 1fr; }
+
+  footer { grid-template-columns: 1fr; height: auto; padding: 40px 24px; gap: 24px; text-align: center; }
+  .flinks { justify-content: center; }
+  .fcopy { text-align: center; }
+
+  .fullbleed { height: 70vw; min-height: 300px; }
+  .fb-title { font-size: 36px; }
+  .fb-body { font-size: 14px; }
+
+  .phone-wrap { margin-top: 0; }
+  .phone2-wrap { display: none; }
+}
 </style>
 </head>
 <body>
