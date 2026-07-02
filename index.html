@@ -227,7 +227,11 @@ nav{
 .pricing{padding:160px 56px;border-top:1px solid var(--rule);}
 .pricing-title{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:400;line-height:0.95;color:var(--ink);margin-bottom:80px;}
 .pricing-title em{font-style:italic;color:var(--sage);}
-.pc-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;align-items:stretch;} .pc{display:flex;flex-direction:column;} .pc-list{flex:1;}
+.pc-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;align-items:stretch;} .pc{display:flex;flex-direction:column;} .pc-list{flex:1;}
+.pc-topup{margin-top:2px;background:var(--bg2);padding:32px 56px;display:flex;align-items:center;justify-content:space-between;gap:40px;}
+.pc-topup-text{font-family:var(--sans);font-size:13px;color:var(--mist2);font-weight:300;letter-spacing:0.03em;line-height:1.6;}
+.pc-topup-text strong{color:var(--ink);font-weight:400;}
+.pc-topup-note{font-family:var(--sans);font-size:11px;color:var(--mist);letter-spacing:0.08em;font-weight:300;white-space:nowrap;}
 .pc{background:var(--bg2);padding:64px 56px;}
 .pc.feat{background:var(--ink);}
 .pc.feat *{color:var(--bg)!important;}
@@ -320,6 +324,7 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
   .pc-row { grid-template-columns: 1fr; }
   .pc { padding: 40px 32px; }
   .pc-price { font-size: 72px; }
+  .pc-topup { flex-direction: column; align-items: flex-start; gap: 12px; padding: 28px 32px; }
 
   .testi { padding: 80px 24px; }
   .tg { grid-template-columns: 1fr; }
@@ -536,34 +541,54 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
 <!-- PRICING -->
 <section class="pricing" id="pricing">
   <p class="sec-label fade">Access</p>
-  <h2 class="pricing-title fade">One payment.<br><em>For life.</em></h2>
+  <h2 class="pricing-title fade">Choose your<br><em>practice.</em></h2>
   <div class="pc-row">
     <div class="pc fade">
       <p class="pc-tier">Free</p>
       <div class="pc-price">$0</div>
       <p class="pc-note">Try the practice</p>
       <ul class="pc-list">
-        <li>3 AI script generations included</li>
-        <li>Schumann frequency 7.83Hz</li>
-        <li>Morning alarm and evening sessions</li>
+        <li>3 AI script generations</li>
+        <li>Schumann frequency 7.83 Hz</li>
+        <li>Ambient soundscape</li>
+        <li>Evening session, read on screen</li>
         <li>Streak tracker</li>
         <li>5 languages</li>
       </ul>
       <a href="https://testflight.apple.com/join/kB52WB3D" class="pc-btn" target="_blank">Start free</a>
     </div>
     <div class="pc feat fade">
-      <p class="pc-tier">Ritual Full Access</p>
-      <div class="pc-price">$29</div>
+      <p class="pc-tier">Monthly</p>
+      <div class="pc-price">$8</div>
+      <p class="pc-note">Per month · Cancel anytime</p>
+      <ul class="pc-list">
+        <li>3 fresh script credits each month</li>
+        <li>Voice recording in your own voice</li>
+        <li>Overnight keep-alive session</li>
+        <li>Morning fade-in alarm</li>
+        <li>Schumann frequency 7.83 Hz</li>
+        <li>5 languages</li>
+      </ul>
+      <a href="https://kalmalpha.com" class="pc-btn" target="_blank">Begin your practice</a>
+    </div>
+    <div class="pc fade">
+      <p class="pc-tier">Lifetime</p>
+      <div class="pc-price">$69</div>
       <p class="pc-note">One time · No subscription · Ever</p>
       <ul class="pc-list">
-        <li>Everything in Free</li>
-        <li>10 AI script generations included</li>
+        <li>20 AI script generations included</li>
         <li>Voice recording in your own voice</li>
-        <li>Session length: 10, 15 or 30 minutes</li>
+        <li>Overnight keep-alive session</li>
+        <li>Morning fade-in alarm</li>
+        <li>Schumann frequency 7.83 Hz</li>
         <li>All future updates included</li>
       </ul>
-      <a href="https://testflight.apple.com/join/kB52WB3D" class="pc-btn" target="_blank">Begin your practice</a>
+      <a href="https://kalmalpha.com" class="pc-btn" target="_blank">Own it forever</a>
     </div>
+  </div>
+  <div class="pc-topup fade">
+    <p class="pc-topup-text"><strong>Need more scripts?</strong> Top up anytime — 5 credits for $2.99, available to monthly and lifetime members.</p>
+    <p class="pc-topup-note">Credits never expire</p>
   </div>
 </section>
 
