@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KαLM · Legal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#F7F8F6;
+  --bg2:#EEF0EC;
+  --bg3:#E4E8E3;
+  --ink:#2A403D;
+  --ink2:#3d5c58;
+  --sage:#748B6F;
+  --sage2:#8fa389;
+  --mist:rgba(42,64,61,0.42);
+  --mist2:rgba(42,64,61,0.65);
+  --rule:rgba(42,64,61,0.1);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;}
+
+/* NAV */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;height:72px;
+  border-bottom:1px solid var(--rule);
+  background:var(--bg);
+}
+.logo{font-family:var(--serif);font-size:26px;font-weight:400;color:var(--ink);text-decoration:none;}
+.logo-a{color:var(--sage);font-style:italic;}
+.nav-home{font-family:var(--sans);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist2);text-decoration:none;transition:color 0.2s;font-weight:300;}
+.nav-home:hover{color:var(--ink);}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:80px 56px 64px;
+  border-bottom:1px solid var(--rule);
+}
+.header-logo{font-family:var(--serif);font-size:48px;font-weight:400;color:var(--ink);margin-bottom:12px;}
+.header-logo span{color:var(--sage);font-style:italic;}
+.header-sub{font-family:var(--sans);font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:var(--sage);font-weight:300;}
+
+/* PAGE NAV */
+.page-nav{
+  display:flex;justify-content:center;gap:48px;
+  padding:20px 56px;
+  border-bottom:1px solid var(--rule);
+  background:var(--bg2);
+  flex-wrap:wrap;
+}
+.page-nav a{
+  font-family:var(--sans);font-size:11px;letter-spacing:0.18em;
+  text-transform:uppercase;color:var(--mist2);text-decoration:none;
+  transition:color 0.2s;font-weight:300;
+  padding-bottom:2px;border-bottom:1px solid transparent;
+}
+.page-nav a:hover{color:var(--ink);border-bottom-color:var(--sage);}
+
+/* MAIN */
+main{max-width:720px;margin:0 auto;padding:80px 40px 120px;}
+
+.section{margin-bottom:80px;padding-bottom:80px;border-bottom:1px solid var(--rule);}
+.section:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+
+.sec-label{
+  font-family:var(--sans);font-size:11px;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--sage);
+  margin-bottom:20px;display:flex;align-items:center;gap:14px;font-weight:300;
+}
+.sec-label::before{content:'';width:24px;height:1px;background:var(--sage);}
+
+.sec-title{
+  font-family:var(--serif);font-size:clamp(32px,4vw,48px);
+  font-weight:400;line-height:1.1;color:var(--ink);margin-bottom:8px;
+}
+
+.updated{
+  font-family:var(--sans);font-size:12px;color:var(--mist);
+  margin-bottom:40px;letter-spacing:0.04em;font-weight:300;
+}
+
+p{
+  font-family:var(--sans);font-size:15px;line-height:1.9;
+  color:var(--mist2);margin-bottom:20px;font-weight:300;
+}
+
+h3{
+  font-family:var(--serif);font-size:20px;font-weight:400;
+  color:var(--ink);margin-top:48px;margin-bottom:12px;line-height:1.2;
+}
+
+.divider{width:32px;height:1px;background:var(--sage);margin:40px 0;}
+
+.contact-block{
+  background:var(--bg2);
+  border:1px solid var(--rule);
+  padding:40px 48px;
+  margin-top:32px;
+}
+.contact-block p{
+  font-size:14px;margin-bottom:8px;color:var(--mist2);
+}
+.contact-block p:last-child{margin:0;}
+.contact-block strong{color:var(--ink);font-weight:400;}
+.contact-block a{color:var(--sage);text-decoration:none;}
+.contact-block a:hover{text-decoration:underline;}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--rule);
+  padding:0 56px;
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;height:80px;
+}
+.fl{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--ink);text-decoration:none;}
+.fl-a{color:var(--sage);font-style:italic;}
+.flinks{display:flex;gap:32px;}
+.flinks a{font-family:var(--sans);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mist);text-decoration:none;transition:color 0.2s;font-weight:300;}
+.flinks a:hover{color:var(--ink);}
+.fcopy{font-family:var(--sans);font-size:11px;color:var(--mist);text-align:right;font-weight:300;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://kalmalpha.com" class="logo">K<span class="logo-a">α</span>LM</a>
+  <a href="index-de.html" class="nav-home">Zurück zur Website</a>
+</nav>
+
+<header>
+  <div class="header-logo">K<span>α</span>LM</div>
+  <p class="header-sub">Rechtliche Informationen</p>
+</header>
+
+<div class="page-nav">
+  <a href="#terms">Nutzungsbedingungen</a>
+  <a href="#privacy">Datenschutzerklärung</a>
+  <a href="#disclaimer">Haftungsausschluss</a>
+  <a href="#contact">Kontakt</a>
+</div>
+
+<main>
+
+  <div class="section" id="terms">
+    <p class="sec-label">Rechtliches</p>
+    <h2 class="sec-title">Nutzungsbedingungen</h2>
+    <p class="updated">Zuletzt aktualisiert: Mai 2026</p>
+    <p>Diese Nutzungsbedingungen regeln Ihren Zugang zu und die Nutzung der KALM-Anwendung und -Website (zusammen der „Dienst"), betrieben von Keren Levy-Bildi, handelnd unter KALM, einer Einzelfirma mit Sitz in Kilchberg, Kanton Zürich, Schweiz.</p>
+    <p>Durch den Zugriff auf oder die Nutzung des Dienstes bestätigen Sie, dass Sie diese Bedingungen gelesen und verstanden haben und sich damit einverstanden erklären. Falls Sie nicht einverstanden sind, nutzen Sie den Dienst bitte nicht.</p>
+    <div class="divider"></div>
+    <h3>1. Der Dienst</h3>
+    <p>KALM ist eine persönliche Wellness-Anwendung, die die Neuprogrammierung des Unterbewusstseins durch personalisierte Affirmationen, Umgebungsklänge und die Schumann-Resonanzfrequenz unterstützen soll. KALM ist kein Medizinprodukt und erhebt keine medizinischen Ansprüche. Einzelheiten finden Sie im Abschnitt Haftungsausschluss weiter unten.</p>
+    <h3>2. Nutzungsberechtigung</h3>
+    <p>Sie müssen mindestens 18 Jahre alt sein, um KALM zu nutzen. Durch die Nutzung des Dienstes versichern Sie, dass Sie diese Voraussetzung erfüllen.</p>
+    <h3>3. Zahlungen</h3>
+    <p>KALM bietet eine kostenlose Stufe, ein monatliches Abonnement (8 $ pro Monat, jederzeit kündbar, automatische Verlängerung) sowie einen einmaligen Lifetime-Kauf (69 $, keine wiederkehrende Zahlung) an. Die Zahlung wird sicher über Stripe abgewickelt. Alle Preise sind in USD angegeben.</p>
+    <p>Sobald ein Kauf abgeschlossen und der Zugang gewährt wurde, werden keine Rückerstattungen geleistet, es sei denn, dies ist nach geltendem schweizerischem Konsumentenschutzrecht ausdrücklich vorgeschrieben.</p>
+    <h3>4. Lizenz</h3>
+    <p>Mit dem Kauf gewährt Ihnen KALM eine persönliche, nicht übertragbare, nicht exklusive Lizenz zur Nutzung der Anwendung auf Ihren eigenen Geräten, ausschliesslich für den persönlichen Gebrauch. Sie dürfen keinen Teil des Dienstes kopieren, verändern, verbreiten, verkaufen oder zurückentwickeln.</p>
+    <h3>5. KI-generierte Inhalte</h3>
+    <p>KALM verwendet künstliche Intelligenz, um personalisierte Affirmations-Skripte basierend auf den von Ihnen angegebenen Wünschen zu erstellen. Diese Skripte sind ausschliesslich für den persönlichen Gebrauch bestimmt. KALM erhebt keinen Anspruch auf die von Ihnen bereitgestellten Inhalte, und Sie tragen die volle Verantwortung für die Informationen, die Sie in die Anwendung eingeben.</p>
+    <h3>6. Geistiges Eigentum</h3>
+    <p>Sämtliche Inhalte, Designs, Codes, Markenelemente und Materialien im Zusammenhang mit KALM sind geistiges Eigentum von Keren Levy-Bildi, handelnd unter KALM. Eine unbefugte Vervielfältigung oder Nutzung ist untersagt.</p>
+    <h3>7. Haftungsbeschränkung</h3>
+    <p>Im nach schweizerischem Recht grösstmöglich zulässigen Umfang haftet KALM nicht für indirekte, zufällige, besondere oder Folgeschäden, die aus Ihrer Nutzung des Dienstes entstehen. Die Gesamthaftung von KALM für jegliche Ansprüche übersteigt nicht den Betrag, den Sie für den Dienst bezahlt haben.</p>
+    <h3>8. Änderungen der Bedingungen</h3>
+    <p>KALM behält sich das Recht vor, diese Bedingungen jederzeit zu aktualisieren. Die fortgesetzte Nutzung des Dienstes nach Veröffentlichung von Änderungen gilt als Zustimmung zu den aktualisierten Bedingungen.</p>
+    <h3>9. Anwendbares Recht</h3>
+    <p>Diese Bedingungen unterliegen dem Recht der Schweiz. Für allfällige Streitigkeiten gilt die ausschliessliche Zuständigkeit der Gerichte des Kantons Zürich.</p>
+  </div>
+
+  <div class="section" id="privacy">
+    <p class="sec-label">Rechtliches</p>
+    <h2 class="sec-title">Datenschutzerklärung</h2>
+    <p class="updated">Zuletzt aktualisiert: Mai 2026</p>
+    <p>Ihre Privatsphäre ist uns wichtig. Diese Datenschutzerklärung erläutert, welche Informationen KALM erhebt, wie sie verwendet und wie sie geschützt werden. KALM wurde so konzipiert, dass so wenig Daten wie möglich erhoben werden.</p>
+    <div class="divider"></div>
+    <h3>1. Auf Ihrem Gerät gespeicherte Daten</h3>
+    <p>Die folgenden Informationen werden ausschliesslich lokal auf Ihrem Gerät gespeichert und niemals an unsere Server übertragen: Ihre Sprachaufnahmen, Sitzungseinstellungen, Ihre Serienzählung, Ihre Sprachpräferenz sowie der Status der Bestätigung des Haftungsausschlusses. Diese Daten verbleiben vollständig unter Ihrer Kontrolle und werden beim Deinstallieren der Anwendung gelöscht.</p>
+    <h3>2. An Drittanbieter übermittelte Daten</h3>
+    <p>Wenn Sie ein Affirmations-Skript erstellen, werden die von Ihnen eingegebenen Wünsche zur Verarbeitung an die Anthropic-API gesendet. Diese Daten werden ausschliesslich zur Erstellung Ihres Skripts verwendet und unterliegen der Datenschutzerklärung von Anthropic, verfügbar unter anthropic.com. KALM speichert diese Daten nicht auf eigenen Servern.</p>
+    <p>Zahlungsdaten werden vollständig von Stripe verarbeitet. KALM hat keinen Zugriff auf Ihre Zahlungskartendaten und speichert diese nicht. Die Datenschutzerklärung von Stripe finden Sie unter stripe.com.</p>
+    <h3>3. Daten, die wir nicht erheben</h3>
+    <p>KALM erhebt weder Ihren Namen, Ihre E-Mail-Adresse, Standortdaten, Gerätekennungen noch andere personenbezogene Daten, es sei denn, Sie stellen diese freiwillig zur Verfügung, wenn Sie uns für den Support kontaktieren.</p>
+    <p>KALM verwendet keine Analysetools, Tracking-Pixel, Cookies oder Werbedienste Dritter.</p>
+    <h3>4. Datenschutz für Minderjährige</h3>
+    <p>KALM ist nicht für Nutzerinnen und Nutzer unter 18 Jahren bestimmt. Wir erheben wissentlich keine Informationen von Minderjährigen.</p>
+    <h3>5. Ihre Rechte</h3>
+    <p>Gemäss dem schweizerischen Datenschutzgesetz (nDSG) und der europäischen Datenschutz-Grundverordnung (DSGVO) haben Sie das Recht, Auskunft über die von uns gespeicherten personenbezogenen Daten zu erhalten sowie deren Berichtigung oder Löschung zu verlangen. Da KALM Daten lokal auf Ihrem Gerät speichert, können Sie diese jederzeit löschen, indem Sie die App-Daten löschen oder die Anwendung deinstallieren.</p>
+    <p>Für datenschutzbezogene Anfragen kontaktieren Sie uns bitte unter keren.bildi@gmail.com.</p>
+    <h3>6. Änderungen dieser Richtlinie</h3>
+    <p>KALM behält sich das Recht vor, diese Datenschutzerklärung jederzeit zu aktualisieren. Änderungen werden auf dieser Seite mit einem aktualisierten Datum veröffentlicht.</p>
+  </div>
+
+  <div class="section" id="disclaimer">
+    <p class="sec-label">Rechtliches</p>
+    <h2 class="sec-title">Medizinischer Haftungsausschluss</h2>
+    <p class="updated">Zuletzt aktualisiert: Mai 2026</p>
+    <div class="divider"></div>
+    <h3>Kein Medizinprodukt</h3>
+    <p>KALM ist ein persönliches Wellness- und Selbstentwicklungstool. Es handelt sich nicht um ein Medizinprodukt, und es ist nicht dazu bestimmt, medizinische Zustände oder Krankheiten zu diagnostizieren, zu behandeln, zu heilen oder ihnen vorzubeugen. Die von KALM bereitgestellten Informationen und Inhalte dienen ausschliesslich allgemeinen Wellness-Zwecken.</p>
+    <h3>Epilepsie und neurologische Erkrankungen</h3>
+    <p>Wenn Sie an Epilepsie, photosensitiven Anfällen oder einer neurologischen Erkrankung leiden, konsultieren Sie bitte Ihren Arzt oder Ihre Ärztin, bevor Sie KALM nutzen. Der Ton der Schumann-Resonanzfrequenz sowie visuelle Veränderungen innerhalb der Anwendung sind möglicherweise nicht für alle Nutzerinnen und Nutzer geeignet.</p>
+    <h3>Psychische Gesundheit</h3>
+    <p>KALM ersetzt keine professionelle psychiatrische oder psychotherapeutische Behandlung oder Medikation. Wenn Sie sich in einer psychischen Krise befinden oder unter psychischem Leid leiden, wenden Sie sich bitte umgehend an eine qualifizierte medizinische Fachperson oder den Notdienst.</p>
+    <h3>Verwendung während der Fahrt</h3>
+    <p>Verwenden Sie KALM niemals während der Fahrt, beim Bedienen von Maschinen oder in Situationen, die Ihre volle Aufmerksamkeit erfordern. KALM ist ausschliesslich für die Nutzung in einer sicheren, ruhenden Umgebung vor dem Schlafen oder nach dem Aufwachen konzipiert.</p>
+    <h3>Nur allgemeines Wellness</h3>
+    <p>Die von KALM bereitgestellten Affirmations-Skripte, die Schumann-Frequenz und die Umgebungsklänge sind als ergänzende Wellness-Hilfsmittel gedacht. Individuelle Ergebnisse können variieren. KALM garantiert keine bestimmten Ergebnisse.</p>
+    <h3>Konsultieren Sie Ihren Arzt</h3>
+    <p>Wenn Sie Bedenken haben, ob KALM für Ihre spezifische gesundheitliche Situation geeignet ist, konsultieren Sie bitte vor der Nutzung eine qualifizierte medizinische Fachperson.</p>
+  </div>
+
+  <div class="section" id="contact">
+    <p class="sec-label">Kontaktieren Sie uns</p>
+    <h2 class="sec-title">Kontakt</h2>
+    <p>Bei Fragen zu diesen Bedingungen, der Datenschutzerklärung oder der KALM-Anwendung kontaktieren Sie uns gerne.</p>
+    <div class="contact-block">
+      <p><strong>Keren Levy-Bildi</strong></p>
+      <p>Handelnd unter KALM (Einzelfirma)</p>
+      <p>Kilchberg, Kanton Zürich, Schweiz</p>
+      <p><a href="mailto:keren.bildi@gmail.com">keren.bildi@gmail.com</a></p>
+      <p><a href="https://kalmalpha.com">kalmalpha.com</a></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <a href="index-de.html" class="fl">K<span class="fl-a">α</span>LM</a>
+  <div class="flinks">
+    <a href="#terms">AGB</a>
+    <a href="#privacy">Datenschutz</a>
+    <a href="#contact">Kontakt</a>
+  </div>
+  <p class="fcopy">© 2026 KALM · Kilchberg, Schweiz</p>
+</footer>
+
+</body>
+</html>
