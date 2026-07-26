@@ -73,6 +73,7 @@ nav{
   margin-bottom:28px;display:flex;align-items:center;gap:14px;font-weight:300;
 }
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:rgba(247,248,246,0.5);}
+.hero-eyebrow-top{display:none;}
 .hero-h1{
   font-family:var(--serif);
   font-size:clamp(56px,8vw,122px);
@@ -288,13 +289,25 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
   .hero-actions { flex-direction: column; width: 100%; }
   .btn-p { width: 100%; text-align: center; }
   .hero-scroll { display: none; }
+  .hero-content .hero-eyebrow { display: none; }
+  .hero-eyebrow-top {
+    display: flex;
+    position: absolute;
+    top: 96px;
+    left: 24px;
+    right: 24px;
+    z-index: 2;
+    margin-bottom: 0;
+  }
   .hero-why {
-    position: static !important;
-    right: auto !important;
+    position: absolute !important;
+    top: 160px !important;
+    left: 24px !important;
+    right: 24px !important;
     bottom: auto !important;
     text-align: left !important;
     max-width: 100% !important;
-    margin: 16px 24px 0 !important;
+    margin: 0 !important;
   }
   .hero-rings { display: none; }
 
@@ -374,6 +387,7 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
 <section class="hero">
   <div class="hero-img"></div>
   <div class="hero-overlay"></div>
+  <p class="hero-eyebrow hero-eyebrow-top fade">Alpha brainwaves · Schumann resonance · Your voice</p>
   <div class="hero-content">
     <p class="hero-eyebrow">Alpha brainwaves · Schumann resonance · Your voice</p>
     <h1 class="hero-h1">
