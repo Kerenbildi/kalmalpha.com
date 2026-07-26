@@ -289,25 +289,20 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
   .hero-actions { flex-direction: column; width: 100%; }
   .btn-p { width: 100%; text-align: center; }
   .hero-scroll { display: none; }
+  .hero { justify-content: flex-start; }
   .hero-content .hero-eyebrow { display: none; }
   .hero-eyebrow-top {
     display: flex;
-    position: absolute;
-    top: 96px;
-    left: 24px;
-    right: 24px;
-    z-index: 2;
-    margin-bottom: 0;
+    position: static;
+    margin: 96px 24px 16px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.35);
   }
   .hero-why {
-    position: absolute !important;
-    top: 160px !important;
-    left: 24px !important;
-    right: 24px !important;
-    bottom: auto !important;
+    position: static !important;
     text-align: left !important;
     max-width: 100% !important;
-    margin: 0 !important;
+    margin: 0 24px 24px !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5), 0 2px 14px rgba(0,0,0,0.3);
   }
   .hero-rings { display: none; }
 
@@ -388,6 +383,7 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
   <div class="hero-img"></div>
   <div class="hero-overlay"></div>
   <p class="hero-eyebrow hero-eyebrow-top fade">Alpha brainwaves · Schumann resonance · Your voice</p>
+  <p class="fade hero-why" style="position:absolute;right:56px;bottom:230px;max-width:420px;text-align:right;z-index:2;font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.2vw,26px);color:rgba(247,248,246,0.88);line-height:1.35;">We believe the way you talk to yourself, at the right moment, changes what you become.</p>
   <div class="hero-content">
     <p class="hero-eyebrow">Alpha brainwaves · Schumann resonance · Your voice</p>
     <h1 class="hero-h1">
@@ -403,7 +399,6 @@ footer{border-top:1px solid var(--rule);padding:40px 56px;display:grid;grid-temp
       </div>
     </div>
   </div>
-  <p class="fade hero-why" style="position:absolute;right:56px;bottom:230px;max-width:420px;text-align:right;z-index:2;font-family:var(--serif);font-style:italic;font-size:clamp(19px,2.2vw,26px);color:rgba(247,248,246,0.88);line-height:1.35;">We believe the way you talk to yourself, at the right moment, changes what you become.</p>
   <div class="hero-scroll">
     <div class="scroll-l"></div>
     <span class="scroll-t">Scroll</span>
