@@ -601,8 +601,7 @@ function renderLanding(app){
   stack.appendChild(startBtn);
   s.appendChild(stack);
 
-  const homeLink = el('button','link-btn','Save this to your phone');
-  homeLink.onclick = () => { state.showHomeScreenModal = true; render(); };
+  const homeLink = homeScreenLink();
   s.appendChild(homeLink);
 
   app.appendChild(s);
@@ -734,8 +733,16 @@ function renderJournal(app){
   };
   stack.appendChild(cont);
   s.appendChild(stack);
+  s.appendChild(homeScreenLink());
 
   app.appendChild(s);
+  if(state.showHomeScreenModal) app.appendChild(homeScreenModal());
+}
+
+function homeScreenLink(){
+  const homeLink = el('button','link-btn','Save this to your phone');
+  homeLink.onclick = () => { state.showHomeScreenModal = true; render(); };
+  return homeLink;
 }
 
 function renderWaitToday(app){
@@ -743,7 +750,9 @@ function renderWaitToday(app){
   s.appendChild(makeLogo(false));
   s.appendChild(el('h1',null,'One night at a time.'));
   s.appendChild(el('p','sub','You\u2019ve already written tonight\u2019s page. Come back tomorrow for the next one, this is part of how it works.'));
+  s.appendChild(homeScreenLink());
   app.appendChild(s);
+  if(state.showHomeScreenModal) app.appendChild(homeScreenModal());
 }
 
 function renderBreathe(app){
@@ -854,8 +863,10 @@ function renderComplete(app){
   };
   stack.appendChild(doneBtn);
   s.appendChild(stack);
+  s.appendChild(homeScreenLink());
 
   app.appendChild(s);
+  if(state.showHomeScreenModal) app.appendChild(homeScreenModal());
 }
 
 function renderAllDone(app){
