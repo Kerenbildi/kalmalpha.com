@@ -666,6 +666,10 @@ function renderPaywall(app){
   s.appendChild(el('h1',null, PRICE_DISPLAY));
   s.appendChild(el('p','sub','Seven nights of guided scripting, plus a fifteen minute ambient sound session after each entry. Yours to keep, at your own pace.'));
 
+  if(state.errorMsg){
+    s.appendChild(el('div','error-text', state.errorMsg));
+  }
+
   const stack = el('div','stack');
   const payBtn = el('button','btn-gold','Complete payment');
   payBtn.onclick = () => { window.open(STRIPE_PAYMENT_LINK, '_blank'); };
@@ -673,11 +677,21 @@ function renderPaywall(app){
 
   const confirmBtn = el('button','btn-secondary',"I've paid, continue");
   confirmBtn.onclick = async () => {
-    state.record.paid = true;
-    await saveRecord(state.email, state.record);
-    state.currentNightIndex = 0;
-    state.screen = 'journal';
-    render();
+    state.errorMsg = "";
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = "Checking...";
+    const fresh = await loadRecord(state.email);
+    if(fresh && fresh.paid){
+      state.record = fresh;
+      state.currentNightIndex = 0;
+      state.screen = 'journal';
+      render();
+    } else {
+      state.errorMsg = "We haven't seen your payment yet. If you just paid, wait a few seconds and try again.";
+      confirmBtn.disabled = false;
+      confirmBtn.textContent = "I've paid, continue";
+      render();
+    }
   };
   stack.appendChild(confirmBtn);
 
@@ -685,6 +699,7 @@ function renderPaywall(app){
   s.appendChild(el('div','small-note','Payment happens securely on Stripe\u2019s own page, using the email you just entered. Come back here once it\u2019s done.'));
   app.appendChild(s);
 }
+
 
 function renderDots(idx){
   const wrap = el('div','progress-dots');
