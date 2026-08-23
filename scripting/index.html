@@ -69,6 +69,25 @@ h1{
 }
 .dark h1{ color:var(--cream); }
 
+.headline{
+  font-family:'Playfair Display',serif;
+  font-weight:500;
+  font-size:2.1rem;
+  line-height:1.22;
+  margin:0 0 18px 0;
+  color:var(--forest);
+  text-align:left;
+  align-self:flex-start;
+}
+.headline .accent{
+  display:block;
+  font-style:italic;
+  font-weight:400;
+  color:var(--sage);
+}
+.dark .headline{ color:var(--cream); }
+.dark .headline .accent{ color:var(--gold); }
+
 p.sub{
   font-size:0.98rem;
   color:var(--sage);
@@ -77,6 +96,10 @@ p.sub{
   max-width:380px;
 }
 .dark p.sub{ color:#A9BBA4; }
+p.sub.sub-left{
+  text-align:left;
+  align-self:flex-start;
+}
 
 .spark{
   color:var(--gold);
@@ -591,9 +614,8 @@ function renderLanding(app){
   const s = el('div','screen');
   const img = el('img','logo-lg'); img.src = LOGO_GREEN; img.alt = "Kalm";
   s.appendChild(img);
-  s.appendChild(el('div','spark','\u2726'));
-  s.appendChild(el('h1',null,'Sleep Scripting'));
-  s.appendChild(el('p','sub','Seven nights of writing your mind into the life you want, followed by fifteen minutes of soft ambient sound to help it settle in.'));
+  s.appendChild(el('div','headline','Seven nights.<span class="accent">Already open.</span>'));
+  s.appendChild(el('p','sub sub-left','Just before sleep, your mind shifts into a state of profound receptivity. Sleep Scripting gives that window seven nights of somewhere to go, then fifteen minutes of soft ambient sound to help it settle in.'));
 
   const stack = el('div','stack');
   const startBtn = el('button','btn-primary','Begin');
@@ -887,9 +909,8 @@ function renderComplete(app){
 function renderAllDone(app){
   const s = el('div','screen dark');
   s.appendChild(makeLogo(true));
-  s.appendChild(el('div','spark','\u2726'));
-  s.appendChild(el('h1',null,'Seven nights of impression.'));
-  s.appendChild(el('p','sub','This is the exact window Kalm was built for, so it doesn\u2019t stop working when the page runs out. Kalm plays your own voice back to you, in your own words, layered with a healing frequency, while you sleep.'));
+  s.appendChild(el('div','headline','Seven nights, written.<span class="accent">The window stays open.</span>'));
+  s.appendChild(el('p','sub sub-left','This is the exact window Kalm was built for, so it doesn\u2019t stop working when the page runs out. Kalm plays your own voice back to you, in your own words, layered with a healing frequency, while you sleep.'));
 
   const stack = el('div','stack');
   const kalmBtn = el('button','btn-gold','See Kalm');
