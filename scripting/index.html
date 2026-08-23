@@ -318,13 +318,13 @@ const PRICE_DISPLAY = "$13";
 const ADMIN_TRIGGER = "kalmadmin";
 
 const NIGHTS = [
-  { label: "Night 1", prompt: "Write today as you wish it had gone. Start with: \u2018I'm so glad that today\u2026\u2019" },
-  { label: "Night 2", prompt: "Write a conversation you wish had gone differently. Rewrite it exactly as you wanted it to happen." },
-  { label: "Night 3", prompt: "Write about your body as if it already feels the way you want it to feel." },
-  { label: "Night 4", prompt: "Write about money or work as if the thing you've been waiting for already happened." },
-  { label: "Night 5", prompt: "Write about a relationship as you wish it existed right now." },
-  { label: "Night 6", prompt: "Write tomorrow morning before it happens. How do you want to wake up feeling?" },
-  { label: "Night 7", prompt: "Write about who you're becoming. Start with: \u2018I am the one who\u2026\u2019" },
+  { label: "Night 1", main: "Write today as you wish it had gone.", accent: "Start with: \u2018I'm so glad that today\u2026\u2019", prompt: "Write today as you wish it had gone. Start with: \u2018I'm so glad that today\u2026\u2019" },
+  { label: "Night 2", main: "Write a conversation you wish had gone differently.", accent: "Rewrite it exactly as you wanted it to happen.", prompt: "Write a conversation you wish had gone differently. Rewrite it exactly as you wanted it to happen." },
+  { label: "Night 3", main: "Write about your body.", accent: "As if it already feels the way you want it to feel.", prompt: "Write about your body as if it already feels the way you want it to feel." },
+  { label: "Night 4", main: "Write about money or work.", accent: "As if the thing you've been waiting for already happened.", prompt: "Write about money or work as if the thing you've been waiting for already happened." },
+  { label: "Night 5", main: "Write about a relationship.", accent: "As you wish it existed right now.", prompt: "Write about a relationship as you wish it existed right now." },
+  { label: "Night 6", main: "Write tomorrow morning before it happens.", accent: "How do you want to wake up feeling?", prompt: "Write tomorrow morning before it happens. How do you want to wake up feeling?" },
+  { label: "Night 7", main: "Write about who you're becoming.", accent: "Start with: \u2018I am the one who\u2026\u2019", prompt: "Write about who you're becoming. Start with: \u2018I am the one who\u2026\u2019" },
 ];
 
 const SESSION_MINUTES = 15;
@@ -739,7 +739,7 @@ function renderJournal(app){
   s.appendChild(makeLogo(false));
   s.appendChild(renderDots(idx));
   s.appendChild(el('div','eyebrow', night.label.toUpperCase()));
-  s.appendChild(el('h1',null, night.prompt));
+  s.appendChild(el('div','headline', night.main + '<span class="accent">' + night.accent + '</span>'));
 
   const existing = (state.record.entries && state.record.entries[idx]) || "";
   const ta = el('textarea');
